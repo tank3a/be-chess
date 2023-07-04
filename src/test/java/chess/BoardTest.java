@@ -41,8 +41,18 @@ public class BoardTest {
         @DisplayName("Pawn리스트 출력")
         public void initialize() {
             board.initialize();
-            assertEquals("pppppppp", board.getWhitePawnsResult());
-            assertEquals("PPPPPPPP", board.getBlackPawnsResult());
+            assertEquals(getRequiredPawnList(Pawn.WHITE_COLOR), board.getWhitePawnsResult());
+            assertEquals(getRequiredPawnList(Pawn.BLACK_COLOR), board.getBlackPawnsResult());
+        }
+
+        private String getRequiredPawnList(final String color) {
+            StringBuilder stringBuilder = new StringBuilder();
+            char representation = color.equals(Pawn.WHITE_COLOR) ? Pawn.WHITE_REPRESENTATION : Pawn.BLACK_REPRESENTATION;
+            for(int i = 0; i < 8; i++) {
+                stringBuilder.append(representation);
+            }
+
+            return stringBuilder.toString();
         }
     }
 
