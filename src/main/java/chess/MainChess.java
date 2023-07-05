@@ -16,7 +16,7 @@ public class MainChess {
             switch (command) {
                 case "start":
                     board.initialize();
-                    board.print();
+                    System.out.println(board.showBoard());
                 case "end":
                     break;
                 default:

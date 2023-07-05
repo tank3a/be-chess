@@ -1,69 +1,83 @@
 package chess;
 
+import chess.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import chess.pieces.Pawn;
 
+import static chess.StringUtils.appendNewLine;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BoardTest {
 
-    Pawn black;
-    Pawn white;
-    Board board;
+    private Board board;
 
     @BeforeEach
     public void init() {
         board = new Board();
-        black = new Pawn(Pawn.BLACK_COLOR);
-        white = new Pawn(Pawn.WHITE_COLOR);
     }
 
     @Nested
     class createTest {
-        @Test
-        @DisplayName("Board에 Pawn 배치 테스트")
-        public void testInput() throws Exception {
-
-            validateInsert(black);
-            validateInsert(white);
-        }
-
-        private void validateInsert(Pawn pawn) {
-            int size = board.size();
-            board.add(pawn);
-            assertEquals(size + 1, board.size());
-        }
 
         @Test
-        @DisplayName("Pawn리스트 출력")
+        @DisplayName("Board Initialize 테스트")
         public void initialize() {
             board.initialize();
-            assertEquals(getRequiredPawnList(Pawn.WHITE_COLOR), board.getWhitePawnsResult());
-            assertEquals(getRequiredPawnList(Pawn.BLACK_COLOR), board.getBlackPawnsResult());
-        }
-
-        private String getRequiredPawnList(final String color) {
+            String blankRank = appendNewLine("........");
             StringBuilder stringBuilder = new StringBuilder();
-            char representation = color.equals(Pawn.WHITE_COLOR) ? Pawn.WHITE_REPRESENTATION : Pawn.BLACK_REPRESENTATION;
-            for(int i = 0; i < 8; i++) {
-                stringBuilder.append(representation);
+            stringBuilder
+                    .append(Piece.BLACK_ROOK_REPRESENTATION)
+                    .append(Piece.BLACK_KNIGHT_REPRESENTATION)
+                    .append(Piece.BLACK_BISHOP_REPRESENTATION)
+                    .append(Piece.BLACK_QUEEN_REPRESENTATION)
+                    .append(Piece.BLACK_KING_REPRESENTATION)
+                    .append(Piece.BLACK_BISHOP_REPRESENTATION)
+                    .append(Piece.BLACK_KNIGHT_REPRESENTATION)
+                    .append(Piece.BLACK_ROOK_REPRESENTATION);
+            String blackOtherRank = stringBuilder.toString();
+
+            stringBuilder = new StringBuilder();
+            stringBuilder
+                    .append(Piece.WHITE_ROOK_REPRESENTATION)
+                    .append(Piece.WHITE_KNIGHT_REPRESENTATION)
+                    .append(Piece.WHITE_BISHOP_REPRESENTATION)
+                    .append(Piece.WHITE_QUEEN_REPRESENTATION)
+                    .append(Piece.WHITE_KING_REPRESENTATION)
+                    .append(Piece.WHITE_BISHOP_REPRESENTATION)
+                    .append(Piece.WHITE_KNIGHT_REPRESENTATION)
+                    .append(Piece.WHITE_ROOK_REPRESENTATION);
+            String whiteOtherRank = stringBuilder.toString();
+
+            stringBuilder = new StringBuilder();
+            for (int i = 0; i < 8; i++) {
+                stringBuilder.append(Piece.BLACK_PAWN_REPRESENTATION);
             }
+            String blackPawnRank = stringBuilder.toString();
 
-            return stringBuilder.toString();
+            stringBuilder = new StringBuilder();
+            for (int i = 0; i < 8; i++) {
+                stringBuilder.append(Piece.WHITE_PAWN_REPRESENTATION);
+            }
+            String whitePawnRank = stringBuilder.toString();
+
+
+            assertEquals(
+                    appendNewLine(blackOtherRank) +
+                    appendNewLine(blackPawnRank) +
+                    blankRank + blankRank + blankRank + blankRank +
+                    appendNewLine(whitePawnRank) +
+                    appendNewLine(whiteOtherRank),
+                    board.showBoard()
+            );
         }
-    }
-
-    @Nested
-    class printTest {
 
         @Test
-        @DisplayName("체스판 출력 테스트")
-        public void printTest() {
+        @DisplayName("초기 말 개수 : 32개")
+        public void count() {
             board.initialize();
-            board.print();
+            assertEquals(32, board.count());
         }
     }
 

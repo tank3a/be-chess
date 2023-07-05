@@ -1,91 +1,76 @@
 package chess;
 
-import chess.pieces.Pawn;
+import chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static chess.StringUtils.appendNewLine;
+
 public class Board {
 
-    private List<Pawn> list;
-    private List<List<Pawn>> boardList;
-    private List<Pawn> whitePawnList;
-    private List<Pawn> blackPawnList;
+    private List<List<Piece>> boardList;
 
     public Board() {
-        list = new ArrayList<>();
         boardList = new ArrayList<>();
     }
 
-    //구현 필요
     public void initialize() {
-        whitePawnList = createPawnList(Pawn.WHITE_COLOR);
-        blackPawnList = createPawnList(Pawn.BLACK_COLOR);
-        boardList.add(new ArrayList<>());
-        boardList.add(blackPawnList);
+        boardList.add(createOtherList(Piece.BLACK_COLOR));
+        boardList.add(createPawnList(Piece.BLACK_COLOR));
         boardList.add(new ArrayList<>());
         boardList.add(new ArrayList<>());
         boardList.add(new ArrayList<>());
         boardList.add(new ArrayList<>());
-        boardList.add(whitePawnList);
-        boardList.add(new ArrayList<>());
+        boardList.add(createPawnList(Piece.WHITE_COLOR));
+        boardList.add(createOtherList(Piece.WHITE_COLOR));
     }
 
-    private List<Pawn> createPawnList(final String color) {
-        List<Pawn> pawnList = new ArrayList<>();
+    private List<Piece> createOtherList(final String color) {
+        List<Piece> otherList = new ArrayList<>();
+        otherList.add(Piece.createRook(color));
+        otherList.add(Piece.createKnight(color));
+        otherList.add(Piece.createBishop(color));
+        otherList.add(Piece.createQueen(color));
+        otherList.add(Piece.createKing(color));
+        otherList.add(Piece.createBishop(color));
+        otherList.add(Piece.createKnight(color));
+        otherList.add(Piece.createRook(color));
 
+        return otherList;
+    }
+
+    private List<Piece> createPawnList(final String color) {
+        List<Piece> pawnList = new ArrayList<>();
         for(int i = 0; i < 8; i++) {
-            pawnList.add(new Pawn(color));
+            pawnList.add(Piece.createPawn(color));
         }
 
         return pawnList;
-
     }
 
-    public void add(Pawn pawn) {
-        list.add(pawn);
-    }
-
-    public int size() {
-        return list.size();
-    }
-
-    public Pawn findPawn(int index) {
-        return list.get(index);
-    }
-
-    //구현 필요
-    public void print() {
+    public String showBoard() {
         StringBuilder boardPrint = new StringBuilder();
         for(int i = 0; i < 8; i++) {
-            List<Pawn> rank = boardList.get(i);
-            if(rank.isEmpty()) {
-                boardPrint.append("........");
-                boardPrint.append("\n");
+            List<Piece> pieceList = boardList.get(i);
+            if(pieceList.isEmpty()) {
+                boardPrint.append(appendNewLine("........"));
                 continue;
             }
-            rank.stream().forEach(pawn -> boardPrint.append(pawn.getRepresentation()));
-            boardPrint.append("\n");
+            StringBuilder rank = new StringBuilder();
+            pieceList.stream().forEach(piece -> rank.append(piece.getRepresentation()));
+            boardPrint.append(appendNewLine(rank.toString()));
         }
 
-        System.out.println(boardPrint.toString());
+        return boardPrint.toString();
     }
 
-    public String getWhitePawnsResult() {
-        return getPawnsResult(Pawn.WHITE_COLOR);
+    public int count() {
+        int count = 0;
+        for(List<Piece> list : boardList) {
+            count += list.size();
+        }
+
+        return count;
     }
-
-    public String getBlackPawnsResult() {
-        return getPawnsResult(Pawn.BLACK_COLOR);
-    }
-
-    private String getPawnsResult(final String color) {
-        StringBuilder pawnsResult = new StringBuilder();
-
-        List<Pawn> pawnList = color.equals(Pawn.WHITE_COLOR) ? whitePawnList : blackPawnList;
-
-        pawnList.stream().forEach(pawn -> pawnsResult.append(pawn.getRepresentation()));
-        return pawnsResult.toString();
-    }
-
 }
