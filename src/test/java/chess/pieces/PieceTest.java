@@ -24,12 +24,12 @@ public class PieceTest {
         @Test
         @DisplayName("흰색, 검정색 Piece 생성 테스트")
         public void create_piece() {
-            verifyPiece(Piece.createWhite(Type.PAWN), Piece.createBlack(Type.PAWN), Type.PAWN);
-            verifyPiece(Piece.createWhite(Type.ROOK), Piece.createBlack(Type.ROOK), Type.ROOK);
-            verifyPiece(Piece.createWhite(Type.KNIGHT), Piece.createBlack(Type.KNIGHT), Type.KNIGHT);
-            verifyPiece(Piece.createWhite(Type.BISHOP), Piece.createBlack(Type.BISHOP), Type.BISHOP);
-            verifyPiece(Piece.createWhite(Type.KING), Piece.createBlack(Type.KING), Type.KING);
-            verifyPiece(Piece.createWhite(Type.QUEEN), Piece.createBlack(Type.QUEEN), Type.QUEEN);
+            verifyPiece(Piece.createWhitePawn(), Piece.createBlackPawn(), Type.PAWN);
+            verifyPiece(Piece.createWhiteRook(), Piece.createBlackRook(), Type.ROOK);
+            verifyPiece(Piece.createWhiteKnight(), Piece.createBlackKnight(), Type.KNIGHT);
+            verifyPiece(Piece.createWhiteBishop(), Piece.createBlackBishop(), Type.BISHOP);
+            verifyPiece(Piece.createWhiteKing(), Piece.createBlackKing(), Type.KING);
+            verifyPiece(Piece.createWhiteQueen(), Piece.createBlackQueen(), Type.QUEEN);
 
             Piece piece = Piece.createBlank();
             assertFalse(piece.isBlack());
