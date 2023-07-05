@@ -1,6 +1,6 @@
 package chess;
 
-import chess.pieces.Piece;
+import chess.pieces.Piece.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -28,37 +28,37 @@ public class BoardTest {
             String blankRank = appendNewLine("........");
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder
-                    .append(Piece.BLACK_ROOK_REPRESENTATION)
-                    .append(Piece.BLACK_KNIGHT_REPRESENTATION)
-                    .append(Piece.BLACK_BISHOP_REPRESENTATION)
-                    .append(Piece.BLACK_QUEEN_REPRESENTATION)
-                    .append(Piece.BLACK_KING_REPRESENTATION)
-                    .append(Piece.BLACK_BISHOP_REPRESENTATION)
-                    .append(Piece.BLACK_KNIGHT_REPRESENTATION)
-                    .append(Piece.BLACK_ROOK_REPRESENTATION);
+                    .append(Type.ROOK.getBlackRepresentation())
+                    .append(Type.KNIGHT.getBlackRepresentation())
+                    .append(Type.BISHOP.getBlackRepresentation())
+                    .append(Type.QUEEN.getBlackRepresentation())
+                    .append(Type.KING.getBlackRepresentation())
+                    .append(Type.BISHOP.getBlackRepresentation())
+                    .append(Type.KNIGHT.getBlackRepresentation())
+                    .append(Type.ROOK.getBlackRepresentation());
             String blackOtherRank = stringBuilder.toString();
 
             stringBuilder = new StringBuilder();
             stringBuilder
-                    .append(Piece.WHITE_ROOK_REPRESENTATION)
-                    .append(Piece.WHITE_KNIGHT_REPRESENTATION)
-                    .append(Piece.WHITE_BISHOP_REPRESENTATION)
-                    .append(Piece.WHITE_QUEEN_REPRESENTATION)
-                    .append(Piece.WHITE_KING_REPRESENTATION)
-                    .append(Piece.WHITE_BISHOP_REPRESENTATION)
-                    .append(Piece.WHITE_KNIGHT_REPRESENTATION)
-                    .append(Piece.WHITE_ROOK_REPRESENTATION);
+                    .append(Type.ROOK.getWhiteRepresentation())
+                    .append(Type.KNIGHT.getWhiteRepresentation())
+                    .append(Type.BISHOP.getWhiteRepresentation())
+                    .append(Type.QUEEN.getWhiteRepresentation())
+                    .append(Type.KING.getWhiteRepresentation())
+                    .append(Type.BISHOP.getWhiteRepresentation())
+                    .append(Type.KNIGHT.getWhiteRepresentation())
+                    .append(Type.ROOK.getWhiteRepresentation());
             String whiteOtherRank = stringBuilder.toString();
 
             stringBuilder = new StringBuilder();
             for (int i = 0; i < 8; i++) {
-                stringBuilder.append(Piece.BLACK_PAWN_REPRESENTATION);
+                stringBuilder.append(Type.PAWN.getBlackRepresentation());
             }
             String blackPawnRank = stringBuilder.toString();
 
             stringBuilder = new StringBuilder();
             for (int i = 0; i < 8; i++) {
-                stringBuilder.append(Piece.WHITE_PAWN_REPRESENTATION);
+                stringBuilder.append(Type.PAWN.getWhiteRepresentation());
             }
             String whitePawnRank = stringBuilder.toString();
 

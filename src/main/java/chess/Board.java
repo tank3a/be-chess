@@ -11,19 +11,18 @@ public class Board {
 
     private List<List<Piece>> boardList;
 
-    public Board() {
-        boardList = new ArrayList<>();
-    }
 
     public void initialize() {
-        boardList.add(createOtherList(Piece.BLACK_COLOR));
-        boardList.add(createPawnList(Piece.BLACK_COLOR));
-        boardList.add(new ArrayList<>());
-        boardList.add(new ArrayList<>());
-        boardList.add(new ArrayList<>());
-        boardList.add(new ArrayList<>());
-        boardList.add(createPawnList(Piece.WHITE_COLOR));
-        boardList.add(createOtherList(Piece.WHITE_COLOR));
+        boardList = new ArrayList<>() {{
+            add(createOtherList(Piece.BLACK_COLOR));
+            add(createPawnList(Piece.BLACK_COLOR));
+            add(new ArrayList<>());
+            add(new ArrayList<>());
+            add(new ArrayList<>());
+            add(new ArrayList<>());
+            add(createPawnList(Piece.WHITE_COLOR));
+            add(createOtherList(Piece.WHITE_COLOR));
+        }}
     }
 
     private List<Piece> createOtherList(final String color) {
@@ -58,7 +57,7 @@ public class Board {
                 continue;
             }
             StringBuilder rank = new StringBuilder();
-            pieceList.stream().forEach(piece -> rank.append(piece.getRepresentation()));
+            pieceList.stream().forEach(piece -> rank.append(piece.getType()));
             boardPrint.append(appendNewLine(rank.toString()));
         }
 
