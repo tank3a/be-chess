@@ -24,11 +24,11 @@ public class Piece {
     }
 
     private final Color color;
-    private final Type representation;
+    private final Type type;
 
-    private Piece(final Color color, final Type representation) {
+    private Piece(final Color color, final Type type) {
         this.color = color;
-        this.representation = representation;
+        this.type = type;
     }
 
     private static Piece init(Color color, Type representation) {
@@ -40,7 +40,7 @@ public class Piece {
     }
 
     public Type getType() {
-        return representation;
+        return type;
     }
 
     private static Piece createWhite(Type type) {
@@ -111,10 +111,21 @@ public class Piece {
         return this.color.equals(Color.BLACK);
     }
 
-    public char getRepresentation() {
+    public char getTypeInCharacter() {
         if(isBlack())
-            return representation.getBlackRepresentation();
+            return type.getBlackRepresentation();
 
-        return representation.getWhiteRepresentation();
+        return type.getWhiteRepresentation();
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        Piece piece = (Piece) obj;
+        return piece.getType().equals(type) && piece.getColor().equals(color);
     }
 }

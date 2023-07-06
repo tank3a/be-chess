@@ -88,22 +88,68 @@ public class BoardTest {
         @Test
         @DisplayName("특정 말의 개수")
         public void countSpecific() {
-            assertEquals(8, board.getPieceCount(Piece.Color.BLACK, Type.PAWN));
-            assertEquals(2, board.getPieceCount(Piece.Color.BLACK, Type.ROOK));
-            assertEquals(1, board.getPieceCount(Piece.Color.BLACK, Type.KING));
-            assertEquals(2, board.getPieceCount(Piece.Color.BLACK, Type.KNIGHT));
-            assertEquals(2, board.getPieceCount(Piece.Color.BLACK, Type.BISHOP));
-            assertEquals(1, board.getPieceCount(Piece.Color.BLACK, Type.QUEEN));
+            assertEquals(8, board.getPieceCount(Piece.createBlackPawn()));
+            assertEquals(2, board.getPieceCount(Piece.createBlackRook()));
+            assertEquals(1, board.getPieceCount(Piece.createBlackKing()));
+            assertEquals(2, board.getPieceCount(Piece.createBlackKnight()));
+            assertEquals(2, board.getPieceCount(Piece.createBlackBishop()));
+            assertEquals(1, board.getPieceCount(Piece.createBlackQueen()));
 
-            assertEquals(8, board.getPieceCount(Piece.Color.WHITE, Type.PAWN));
-            assertEquals(2, board.getPieceCount(Piece.Color.WHITE, Type.ROOK));
-            assertEquals(1, board.getPieceCount(Piece.Color.WHITE, Type.KING));
-            assertEquals(2, board.getPieceCount(Piece.Color.WHITE, Type.KNIGHT));
-            assertEquals(2, board.getPieceCount(Piece.Color.WHITE, Type.BISHOP));
-            assertEquals(1, board.getPieceCount(Piece.Color.WHITE, Type.QUEEN));
+            assertEquals(8, board.getPieceCount(Piece.createWhitePawn()));
+            assertEquals(2, board.getPieceCount(Piece.createWhiteRook()));
+            assertEquals(1, board.getPieceCount(Piece.createWhiteKing()));
+            assertEquals(2, board.getPieceCount(Piece.createWhiteKnight()));
+            assertEquals(2, board.getPieceCount(Piece.createWhiteBishop()));
+            assertEquals(1, board.getPieceCount(Piece.createWhiteQueen()));
 
         }
     }
 
+    @Nested
+    @DisplayName("Board에서 Piece의 위치와 관련한 테스트")
+    class positionTest {
+
+        @Test
+        @DisplayName("기물 반환 테스트")
+        public void checkPieceLocation() {
+            assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
+            assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
+            assertEquals(Piece.createBlackKnight(), board.findPiece("b8"));
+            assertEquals(Piece.createBlackKnight(), board.findPiece("g8"));
+            assertEquals(Piece.createBlackBishop(), board.findPiece("c8"));
+            assertEquals(Piece.createBlackBishop(), board.findPiece("f8"));
+            assertEquals(Piece.createBlackQueen(), board.findPiece("d8"));
+            assertEquals(Piece.createBlackKing(), board.findPiece("e8"));
+
+            assertEquals(Piece.createBlackPawn(), board.findPiece("a7"));
+            assertEquals(Piece.createBlackPawn(), board.findPiece("b7"));
+            assertEquals(Piece.createBlackPawn(), board.findPiece("c7"));
+            assertEquals(Piece.createBlackPawn(), board.findPiece("d7"));
+            assertEquals(Piece.createBlackPawn(), board.findPiece("e7"));
+            assertEquals(Piece.createBlackPawn(), board.findPiece("f7"));
+            assertEquals(Piece.createBlackPawn(), board.findPiece("g7"));
+            assertEquals(Piece.createBlackPawn(), board.findPiece("h7"));
+
+            assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
+            assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
+            assertEquals(Piece.createWhiteKnight(), board.findPiece("b1"));
+            assertEquals(Piece.createWhiteKnight(), board.findPiece("g1"));
+            assertEquals(Piece.createWhiteBishop(), board.findPiece("c1"));
+            assertEquals(Piece.createWhiteBishop(), board.findPiece("f1"));
+            assertEquals(Piece.createWhiteQueen(), board.findPiece("d1"));
+            assertEquals(Piece.createWhiteKing(), board.findPiece("e1"));
+
+            assertEquals(Piece.createWhitePawn(), board.findPiece("a2"));
+            assertEquals(Piece.createWhitePawn(), board.findPiece("b2"));
+            assertEquals(Piece.createWhitePawn(), board.findPiece("c2"));
+            assertEquals(Piece.createWhitePawn(), board.findPiece("d2"));
+            assertEquals(Piece.createWhitePawn(), board.findPiece("e2"));
+            assertEquals(Piece.createWhitePawn(), board.findPiece("f2"));
+            assertEquals(Piece.createWhitePawn(), board.findPiece("g2"));
+            assertEquals(Piece.createWhitePawn(), board.findPiece("h2"));
+
+        }
+
+    }
 
 }

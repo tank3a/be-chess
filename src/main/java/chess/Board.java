@@ -18,7 +18,7 @@ public class Board {
         @Override
         public String toString() {
             StringBuilder rank = new StringBuilder();
-            Arrays.stream(rowList).forEach(piece -> rank.append(piece.getRepresentation()));
+            Arrays.stream(rowList).forEach(piece -> rank.append(piece.getTypeInCharacter()));
 
             return rank.toString();
         }
@@ -109,16 +109,23 @@ public class Board {
         return board.toString();
     }
 
-    public int getPieceCount(Color color, Type type) {
+    public int getPieceCount(Piece pieceToCompare) {
         int count = 0;
         for (Rank rank : boardList) {
             for (Piece piece : rank.rowList) {
-                if(piece.getColor().equals(color) && piece.getType().equals(type)) {
+                if(piece.equals(pieceToCompare)) {
                     count++;
                 }
             }
         }
 
         return count;
+    }
+
+    public Piece findPiece(String position) {
+        char xIndex = position.charAt(0);
+        char yIndex = position.charAt(1);
+
+        return boardList.get(8 - Character.getNumericValue(yIndex)).rowList[xIndex - 'a'];
     }
 }
