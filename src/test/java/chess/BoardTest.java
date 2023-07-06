@@ -80,13 +80,13 @@ public class BoardTest {
     class countTest {
 
         @Test
-        @DisplayName("초기 말 개수 : 32개")
+        @DisplayName("초기 기물 개수 : 32개")
         public void count() {
             assertEquals(32, board.countAll());
         }
 
         @Test
-        @DisplayName("특정 말의 개수")
+        @DisplayName("특정 기물 개수")
         public void countSpecific() {
             assertEquals(8, board.getPieceCount(Piece.createBlackPawn()));
             assertEquals(2, board.getPieceCount(Piece.createBlackRook()));
@@ -148,6 +148,20 @@ public class BoardTest {
             assertEquals(Piece.createWhitePawn(), board.findPiece("g2"));
             assertEquals(Piece.createWhitePawn(), board.findPiece("h2"));
 
+        }
+
+        @Test
+        @DisplayName("기물 배치 테스트")
+        public void placePiece() {
+            //given
+            String position = "b5";
+            Piece piece = Piece.createBlackQueen();
+
+            //when
+            board.move(position, piece);
+
+            //then
+            assertEquals(Piece.createBlackQueen(), board.findPiece(position));
         }
 
     }

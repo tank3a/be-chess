@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static chess.Position.convertXIndex;
+import static chess.Position.convertYIndex;
 import static chess.StringUtils.appendNewLine;
 
 public class Board {
@@ -123,9 +125,10 @@ public class Board {
     }
 
     public Piece findPiece(String position) {
-        char xIndex = position.charAt(0);
-        char yIndex = position.charAt(1);
+        return boardList.get(convertYIndex(position)).rowList[convertXIndex(position)];
+    }
 
-        return boardList.get(8 - Character.getNumericValue(yIndex)).rowList[xIndex - 'a'];
+    public void move(String position, Piece pieceToMove) {
+        boardList.get(convertYIndex(position)).rowList[convertXIndex(position)] = pieceToMove;
     }
 }
