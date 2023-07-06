@@ -41,7 +41,7 @@ public class PieceTest {
             assertTrue(whitePiece.isWhite());
             assertEquals(type, whitePiece.getType());
 
-            assertTrue(blackPiece.isWhite());
+            assertTrue(blackPiece.isBlack());
             assertEquals(type, blackPiece.getType());
         }
     }

@@ -1,5 +1,6 @@
 package chess;
 
+import chess.pieces.Piece;
 import chess.pieces.Piece.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +17,7 @@ public class BoardTest {
     @BeforeEach
     public void init() {
         board = new Board();
+        board.initialize();
     }
 
     @Nested
@@ -24,7 +26,6 @@ public class BoardTest {
         @Test
         @DisplayName("Board Initialize 테스트")
         public void initialize() {
-            board.initialize();
             String blankRank = appendNewLine("........");
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder
@@ -72,13 +73,37 @@ public class BoardTest {
                     board.showBoard()
             );
         }
+    }
+
+    @Nested
+    @DisplayName("Board의 Piece를 count하는 테스트")
+    class countTest {
 
         @Test
         @DisplayName("초기 말 개수 : 32개")
         public void count() {
-            board.initialize();
-            assertEquals(32, board.count());
+            assertEquals(32, board.countAll());
+        }
+
+        @Test
+        @DisplayName("특정 말의 개수")
+        public void countSpecific() {
+            assertEquals(8, board.getPieceCount(Piece.Color.BLACK, Type.PAWN));
+            assertEquals(2, board.getPieceCount(Piece.Color.BLACK, Type.ROOK));
+            assertEquals(1, board.getPieceCount(Piece.Color.BLACK, Type.KING));
+            assertEquals(2, board.getPieceCount(Piece.Color.BLACK, Type.KNIGHT));
+            assertEquals(2, board.getPieceCount(Piece.Color.BLACK, Type.BISHOP));
+            assertEquals(1, board.getPieceCount(Piece.Color.BLACK, Type.QUEEN));
+
+            assertEquals(8, board.getPieceCount(Piece.Color.WHITE, Type.PAWN));
+            assertEquals(2, board.getPieceCount(Piece.Color.WHITE, Type.ROOK));
+            assertEquals(1, board.getPieceCount(Piece.Color.WHITE, Type.KING));
+            assertEquals(2, board.getPieceCount(Piece.Color.WHITE, Type.KNIGHT));
+            assertEquals(2, board.getPieceCount(Piece.Color.WHITE, Type.BISHOP));
+            assertEquals(1, board.getPieceCount(Piece.Color.WHITE, Type.QUEEN));
+
         }
     }
+
 
 }

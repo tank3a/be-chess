@@ -110,4 +110,11 @@ public class Piece {
     public boolean isBlack() {
         return this.color.equals(Color.BLACK);
     }
+
+    public char getRepresentation() {
+        if(isBlack())
+            return representation.getBlackRepresentation();
+
+        return representation.getWhiteRepresentation();
+    }
 }
