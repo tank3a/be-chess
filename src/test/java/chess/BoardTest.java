@@ -185,8 +185,6 @@ public class BoardTest {
             addPiece("e1", Piece.createWhiteRook());
             addPiece("f1", Piece.createWhiteKing());
 
-            System.out.println(board.showBoard());
-
             assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
             assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
         }
@@ -224,8 +222,8 @@ public class BoardTest {
             addPiece("e1", Piece.createWhiteRook());
             addPiece("f1", Piece.createWhiteKing());
 
-            assertEquals("QRRK", board.sortPieceDescAndPrint(Color.BLACK));
-            assertEquals("rppk", board.sortPieceDescAndPrint(Color.WHITE));
+            assertEquals("QRRK", board.sortPieceAndPrint(Color.BLACK, true));
+            assertEquals("rppk", board.sortPieceAndPrint(Color.WHITE, true));
 
         }
 
@@ -243,8 +241,8 @@ public class BoardTest {
             addPiece("e1", Piece.createWhiteRook());
             addPiece("f1", Piece.createWhiteKing());
 
-            assertEquals("KRRQ", board.sortPieceAscAndPrint(Color.BLACK));
-            assertEquals("kppr", board.sortPieceAscAndPrint(Color.WHITE));
+            assertEquals("KRRQ", board.sortPieceAndPrint(Color.BLACK, false));
+            assertEquals("kppr", board.sortPieceAndPrint(Color.WHITE, false));
         }
 
     }

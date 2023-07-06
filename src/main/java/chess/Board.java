@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static chess.Position.convertXIndex;
 import static chess.Position.convertYIndex;
@@ -19,10 +18,10 @@ public class Board {
     private List<Rank> boardList;
     private final int BOARD_SIZE = 64;
 
+    public Board() {}
 
     public void initialize() {
         initializeEmpty();
-
         boardList.get(0).setInitialBlackOther();
         boardList.get(1).setInitialBlackPawn();
         boardList.get(6).setInitialWhitePawn();
@@ -31,7 +30,6 @@ public class Board {
 
     public void initializeEmpty() {
         boardList = new ArrayList<>();
-
         for (int index = 0; index < 8; index++) {
             boardList.add(new Rank());
         }
@@ -99,55 +97,30 @@ public class Board {
         boolean hasMore = false;
         int count = 0;
         double totalScore = 0;
-        if(color.equals(Color.WHITE)) {
-            for(int i = 0; i < 8; i++) {
-                hasMore = false;
-                count = 0;
-                for(int j = 0; j < 8; j++) {
-                    if(boardList.get(j).rank.get(i).equals(Piece.createWhitePawn())) {
-                        count++;
-                        hasMore = true;
-                    }
-                }
-
-                if(hasMore && count > 1) {
-                    totalScore += count / 2.0;
-                    continue;
-                }
-
-                totalScore += count;
-
-            }
-
-            return totalScore;
+        Piece piece = Piece.createBlackPawn();
+        if (color.equals(Color.WHITE)) {
+            piece = Piece.createWhitePawn();
         }
 
-        if(color.equals(Color.BLACK)) {
-            for(int i = 0; i < 8; i++) {
-                hasMore = false;
-                count = 0;
-                for(int j = 0; j < 8; j++) {
-                    if(boardList.get(j).rank.get(i).equals(Piece.createBlackPawn())) {
-                        count++;
-                        hasMore = true;
-                    }
+        for(int i = 0; i < 8; i++) {
+            hasMore = false;
+            count = 0;
+            for(int j = 0; j < 8; j++) {
+                if(boardList.get(j).rank.get(i).equals(piece)) {
+                    count++;
+                    hasMore = true;
                 }
-
-                if(hasMore && count > 1) {
-                    totalScore += count / 2.0;
-                    continue;
-                }
-                totalScore += count;
             }
-
-            return totalScore;
+            if(hasMore && count > 1) {
+                totalScore += count / 2.0;
+                continue;
+            }
+            totalScore += count;
         }
-
-        //예외처리 필요
-        return -1;
+        return totalScore;
     }
 
-    public String sortPieceAscAndPrint(Color color) {
+    public String sortPieceAndPrint(Color color, boolean desc) {
         List<Piece> pieceList = new ArrayList<>();
 
         for (int index = 0; index < 8; index++) {
@@ -166,35 +139,15 @@ public class Board {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        pieceList.stream().sorted(Comparator.comparing(piece -> piece.getType().getPoint()))
-                .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
-
-        return stringBuilder.toString();
-    }
-
-    public String sortPieceDescAndPrint(Color color) {
-        List<Piece> pieceList = new ArrayList<>();
-
-        for (int index = 0; index < 8; index++) {
-            Iterator iterator = boardList.get(index).rank.listIterator();
-
-            while (iterator.hasNext()) {
-                Piece piece = (Piece) iterator.next();
-                if(color.equals(Color.BLACK) && piece.isBlack()) {
-                    pieceList.add(piece);
-                }
-                if(color.equals(Color.WHITE) && piece.isWhite()) {
-                    pieceList.add(piece);
-                }
-            }
+        if(desc) {
+            pieceList.stream().sorted(Comparator.comparing(Piece::getScore).reversed())
+                    .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
+        }
+        if(!desc) {
+            pieceList.stream().sorted(Comparator.comparing(piece -> piece.getType().getPoint()))
+                    .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-
-        pieceList.stream().sorted(Comparator.comparing(Piece::getScore).reversed())
-                .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
-
         return stringBuilder.toString();
     }
-
 }
