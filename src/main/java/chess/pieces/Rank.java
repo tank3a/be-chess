@@ -3,10 +3,8 @@ package chess.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import static chess.StringUtils.appendNewLine;
-
 public class Rank {
-    List<Piece> rank;
+    public List<Piece> rank;
 
     public Rank() {
         rank = new ArrayList<>();

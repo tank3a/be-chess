@@ -1,6 +1,7 @@
 package chess;
 
 import chess.pieces.Piece;
+import chess.pieces.Piece.Color;
 import chess.pieces.Piece.Type;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -162,6 +163,88 @@ public class BoardTest {
 
             //then
             assertEquals(Piece.createBlackQueen(), board.findPiece(position));
+        }
+    }
+
+    @Nested
+    @DisplayName("점수 관련 테스트")
+    class pointTest {
+
+        @Test
+        @DisplayName("흑/백 점수 출력")
+        public void calculatePoint() {
+            board.initializeEmpty();
+
+            addPiece("b6", Piece.createBlackPawn());
+            addPiece("e6", Piece.createBlackQueen());
+            addPiece("b8", Piece.createBlackKing());
+            addPiece("c8", Piece.createBlackRook());
+
+            addPiece("f2", Piece.createWhitePawn());
+            addPiece("g2", Piece.createWhitePawn());
+            addPiece("e1", Piece.createWhiteRook());
+            addPiece("f1", Piece.createWhiteKing());
+
+            System.out.println(board.showBoard());
+
+            assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
+            assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
+        }
+
+        @Test
+        @DisplayName("Pawn 같은 라인일 때 점수 출력")
+        public void calculatePointWhenPawnInLine() {
+            board.initializeEmpty();
+
+            addPiece("f7", Piece.createBlackPawn());
+            addPiece("f2", Piece.createWhitePawn());
+            addPiece("f3", Piece.createWhitePawn());
+            addPiece("e1", Piece.createWhiteRook());
+            addPiece("f1", Piece.createWhiteKing());
+
+            assertEquals(6.0, board.calculatePoint(Color.WHITE), 0.01);
+
+        }
+
+        private void addPiece(String position, Piece piece) {
+            board.move(position, piece);
+        }
+
+        @Test
+        @DisplayName("기물 점수가 높은 순으로 정렬")
+        public void pieceSortByScoreDescTest() {
+            board.initializeEmpty();
+            addPiece("b6", Piece.createBlackRook());
+            addPiece("e6", Piece.createBlackQueen());
+            addPiece("b8", Piece.createBlackKing());
+            addPiece("c8", Piece.createBlackRook());
+
+            addPiece("f2", Piece.createWhitePawn());
+            addPiece("f3", Piece.createWhitePawn());
+            addPiece("e1", Piece.createWhiteRook());
+            addPiece("f1", Piece.createWhiteKing());
+
+            assertEquals("QRRK", board.sortPieceDescAndPrint(Color.BLACK));
+            assertEquals("rppk", board.sortPieceDescAndPrint(Color.WHITE));
+
+        }
+
+        @Test
+        @DisplayName("기물 점수가 낮은 순으로 정렬")
+        public void pieceSortByScoreAscTest() {
+            board.initializeEmpty();
+            addPiece("b6", Piece.createBlackRook());
+            addPiece("e6", Piece.createBlackQueen());
+            addPiece("b8", Piece.createBlackKing());
+            addPiece("c8", Piece.createBlackRook());
+
+            addPiece("f2", Piece.createWhitePawn());
+            addPiece("f3", Piece.createWhitePawn());
+            addPiece("e1", Piece.createWhiteRook());
+            addPiece("f1", Piece.createWhiteKing());
+
+            assertEquals("KRRQ", board.sortPieceAscAndPrint(Color.BLACK));
+            assertEquals("kppr", board.sortPieceAscAndPrint(Color.WHITE));
         }
 
     }
