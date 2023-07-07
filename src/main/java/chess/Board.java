@@ -120,9 +120,8 @@ public class Board {
         return totalScore;
     }
 
-    public String sortPieceAndPrint(Color color, boolean desc) {
+    private List<Piece> sortPiece(Color color) {
         List<Piece> pieceList = new ArrayList<>();
-
         for (int index = 0; index < 8; index++) {
             Iterator iterator = boardList.get(index).rank.listIterator();
 
@@ -137,15 +136,25 @@ public class Board {
             }
         }
 
+        return pieceList;
+    }
+
+    private StringBuilder printSort(List<Piece> pieceList) {
         StringBuilder stringBuilder = new StringBuilder();
 
+        pieceList.stream().sorted(Comparator.comparing(piece -> piece.getType().getPoint()))
+                .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
+
+        return stringBuilder;
+    }
+
+    public String sortPieceAndPrint(Color color, boolean desc) {
+
+        List<Piece> pieceList = sortPiece(color);
+
+        StringBuilder stringBuilder = printSort(pieceList);
         if(desc) {
-            pieceList.stream().sorted(Comparator.comparing(Piece::getScore).reversed())
-                    .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
-        }
-        if(!desc) {
-            pieceList.stream().sorted(Comparator.comparing(piece -> piece.getType().getPoint()))
-                    .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
+            stringBuilder = stringBuilder.reverse();
         }
 
         return stringBuilder.toString();
