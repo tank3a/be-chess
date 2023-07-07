@@ -144,4 +144,6 @@ public class Piece {
         Piece piece = (Piece) obj;
         return piece.getType().equals(type) && piece.getColor().equals(color);
     }
+
+
 }

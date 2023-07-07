@@ -15,23 +15,26 @@ import static chess.StringUtils.appendNewLine;
 
 public class Board {
 
-    private List<Rank> boardList;
+    private List<Rank> rankList;
     private final int BOARD_SIZE = 64;
+    private final int FILE_SIZE = 8;
+    private final int RANK_SIZE = 8;
+    private final int MAX_PAWN_IN_LINE_FULL_SCORE = 1;
 
     public Board() {}
 
     public void initialize() {
         initializeEmpty();
-        boardList.get(0).setInitialBlackOther();
-        boardList.get(1).setInitialBlackPawn();
-        boardList.get(6).setInitialWhitePawn();
-        boardList.get(7).setInitialWhiteOther();
+        rankList.get(0).setInitialBlackOther();
+        rankList.get(1).setInitialBlackPawn();
+        rankList.get(6).setInitialWhitePawn();
+        rankList.get(7).setInitialWhiteOther();
     }
 
     public void initializeEmpty() {
-        boardList = new ArrayList<>();
+        rankList = new ArrayList<>();
         for (int index = 0; index < 8; index++) {
-            boardList.add(new Rank());
+            rankList.add(new Rank());
         }
     }
 
@@ -46,46 +49,46 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder board = new StringBuilder();
-        boardList.stream().forEach(rank -> board.append(appendNewLine(rank.toString())));
+        rankList.stream().forEach(rank -> board.append(appendNewLine(rank.toString())));
 
         return board.toString();
     }
 
     public int getPieceCount(Piece pieceToCount) {
         int count = 0;
-        for (Rank rank : boardList) {
+        for (Rank rank : rankList) {
             count += rank.countPiece(pieceToCount);
         }
         return count;
     }
 
     public Piece findPiece(String position) {
-        return boardList.get(convertYIndex(position)).getPiece(convertXIndex(position));
+        return rankList.get(convertYIndex(position)).getPiece(convertXIndex(position));
     }
 
     public void move(String position, Piece pieceToMove) {
-        boardList.get(convertYIndex(position)).setPiece(convertXIndex(position), pieceToMove);
+        rankList.get(convertYIndex(position)).setPiece(convertXIndex(position), pieceToMove);
     }
 
     public double calculatePoint(Color color) {
         double point = 0;
         if(color.equals(Color.BLACK)) {
 
-            point += Piece.createBlackPawn().getType().getPoint() * checkPawnInLine(color);
-            point += Piece.createBlackRook().getType().getPoint() * getPieceCount(Piece.createBlackRook());
-            point += Piece.createBlackBishop().getType().getPoint() * getPieceCount(Piece.createBlackBishop());
-            point += Piece.createBlackKnight().getType().getPoint() * getPieceCount(Piece.createBlackKnight());
-            point += Piece.createBlackQueen().getType().getPoint() * getPieceCount(Piece.createBlackQueen());
+            point += Piece.Type.PAWN.getPoint() * checkPawnInLine(color);
+            point += Piece.Type.ROOK.getPoint() * getPieceCount(Piece.createBlackRook());
+            point += Piece.Type.BISHOP.getPoint() * getPieceCount(Piece.createBlackBishop());
+            point += Piece.Type.KNIGHT.getPoint() * getPieceCount(Piece.createBlackKnight());
+            point += Piece.Type.QUEEN.getPoint() * getPieceCount(Piece.createBlackQueen());
 
             return point;
         }
 
         if(color.equals(Color.WHITE)) {
-            point += Piece.createWhitePawn().getType().getPoint() * checkPawnInLine(color);
-            point += Piece.createWhiteRook().getType().getPoint() * getPieceCount(Piece.createWhiteRook());
-            point += Piece.createWhiteBishop().getType().getPoint() * getPieceCount(Piece.createWhiteBishop());
-            point += Piece.createWhiteKnight().getType().getPoint() * getPieceCount(Piece.createWhiteKnight());
-            point += Piece.createWhiteQueen().getType().getPoint() * getPieceCount(Piece.createWhiteQueen());
+            point += Piece.Type.PAWN.getPoint() * checkPawnInLine(color);
+            point += Piece.Type.ROOK.getPoint() * getPieceCount(Piece.createWhiteRook());
+            point += Piece.Type.BISHOP.getPoint() * getPieceCount(Piece.createWhiteBishop());
+            point += Piece.Type.KNIGHT.getPoint() * getPieceCount(Piece.createWhiteKnight());
+            point += Piece.Type.QUEEN.getPoint() * getPieceCount(Piece.createWhiteQueen());
 
             return point;
         }
@@ -94,7 +97,6 @@ public class Board {
     }
 
     private double checkPawnInLine(Color color) {
-        boolean hasMore = false;
         int count = 0;
         double totalScore = 0;
         Piece piece = Piece.createBlackPawn();
@@ -102,28 +104,26 @@ public class Board {
             piece = Piece.createWhitePawn();
         }
 
-        for(int column = 0; column < 8; column++) {
-            hasMore = false;
+        for(int column = 0; column < FILE_SIZE; column++) {
             count = 0;
-            for(int row = 0; row < 8; row++) {
-                if(boardList.get(row).rank.get(column).equals(piece)) {
+            for(int row = 0; row < RANK_SIZE; row++) {
+                if(rankList.get(row).rank.get(column).equals(piece)) {
                     count++;
-                    hasMore = true;
                 }
             }
-            if(hasMore && count > 1) {
+            if(count > MAX_PAWN_IN_LINE_FULL_SCORE) {
                 totalScore += count / 2.0;
                 continue;
             }
             totalScore += count;
         }
-        return totalScore;
+        return totalScore * Piece.Type.PAWN.getPoint();
     }
 
     private List<Piece> getAllPieceByColor(Color color) {
         List<Piece> pieceList = new ArrayList<>();
-        for (int index = 0; index < 8; index++) {
-            Iterator iterator = boardList.get(index).rank.listIterator();
+        for (int index = 0; index < RANK_SIZE; index++) {
+            Iterator iterator = rankList.get(index).rank.listIterator();
 
             while (iterator.hasNext()) {
                 Piece piece = (Piece) iterator.next();
