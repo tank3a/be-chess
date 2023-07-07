@@ -102,11 +102,11 @@ public class Board {
             piece = Piece.createWhitePawn();
         }
 
-        for(int i = 0; i < 8; i++) {
+        for(int column = 0; column < 8; column++) {
             hasMore = false;
             count = 0;
-            for(int j = 0; j < 8; j++) {
-                if(boardList.get(j).rank.get(i).equals(piece)) {
+            for(int row = 0; row < 8; row++) {
+                if(boardList.get(row).rank.get(column).equals(piece)) {
                     count++;
                     hasMore = true;
                 }
@@ -120,7 +120,7 @@ public class Board {
         return totalScore;
     }
 
-    private List<Piece> sortPiece(Color color) {
+    private List<Piece> getAllPieceByColor(Color color) {
         List<Piece> pieceList = new ArrayList<>();
         for (int index = 0; index < 8; index++) {
             Iterator iterator = boardList.get(index).rank.listIterator();
@@ -150,7 +150,7 @@ public class Board {
 
     public String sortPieceAndPrint(Color color, boolean desc) {
 
-        List<Piece> pieceList = sortPiece(color);
+        List<Piece> pieceList = getAllPieceByColor(color);
 
         StringBuilder stringBuilder = printSort(pieceList);
         if(desc) {
