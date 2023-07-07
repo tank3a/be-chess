@@ -111,7 +111,7 @@ public class Board {
         for(int column = 0; column < FILE_SIZE; column++) {
             count = 0;
             for(int row = 0; row < RANK_SIZE; row++) {
-                if(rankList.get(row).rank.get(column).equals(piece)) {
+                if(rankList.get(row).getRank().get(column).equals(piece)) {
                     count++;
                 }
             }
@@ -127,7 +127,7 @@ public class Board {
     private List<Piece> getAllPieceByColor(Color color) {
         List<Piece> pieceList = new ArrayList<>();
         for (int index = 0; index < RANK_SIZE; index++) {
-            Iterator iterator = rankList.get(index).rank.listIterator();
+            Iterator iterator = rankList.get(index).getRank().listIterator();
 
             while (iterator.hasNext()) {
                 Piece piece = (Piece) iterator.next();

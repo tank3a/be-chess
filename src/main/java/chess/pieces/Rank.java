@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rank {
-    public List<Piece> rank;
+    private List<Piece> rank;
 
     public Rank() {
         rank = new ArrayList<>();
         for(int repeat = 0; repeat < 8; repeat++) {
             rank.add(Piece.createBlank());
         }
+    }
+
+    public List<Piece> getRank() {
+        return rank;
     }
 
     public void setInitialBlackPawn() {
