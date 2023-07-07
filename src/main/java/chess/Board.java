@@ -42,9 +42,7 @@ public class Board {
         return toString();
     }
 
-    public int countAll() {
-        return BOARD_SIZE - getPieceCount(Piece.createBlank());
-    }
+
 
     @Override
     public String toString() {
@@ -68,6 +66,12 @@ public class Board {
 
     public void move(String position, Piece pieceToMove) {
         rankList.get(convertYIndex(position)).setPiece(convertXIndex(position), pieceToMove);
+    }
+
+    public void move(String before, String after) {
+        Piece piece = findPiece(before);
+        rankList.get(convertYIndex(after)).setPiece(convertXIndex(after), piece);
+        rankList.get(convertYIndex(before)).setPiece(convertXIndex(before), Piece.createBlank());
     }
 
     public double calculatePoint(Color color) {

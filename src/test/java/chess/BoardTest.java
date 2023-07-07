@@ -164,6 +164,21 @@ public class BoardTest {
             //then
             assertEquals(Piece.createBlackQueen(), board.findPiece(position));
         }
+
+        @Test
+        @DisplayName("기물 이동 테스트")
+        public void movePiece() {
+            //given
+            String before = "b1";
+            String after = "c3";
+
+            //when
+            board.move(before, after);
+
+            //then
+            assertEquals(Piece.createBlank(), board.findPiece(before));
+            assertEquals(Piece.createWhiteKnight(), board.findPiece(after));
+        }
     }
 
     @Nested
