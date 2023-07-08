@@ -13,7 +13,7 @@ public class PieceTest {
     class elementTest {
         @Test
         @DisplayName("Piece Representation 테스트")
-        public void pieceRepresentation() {
+        void pieceRepresentation() {
             assertEquals('p', Type.PAWN.getWhiteRepresentation());
             assertEquals('P', Type.PAWN.getBlackRepresentation());
         }
@@ -23,7 +23,7 @@ public class PieceTest {
     class createPieceTest {
         @Test
         @DisplayName("흰색, 검정색 Piece 생성 테스트")
-        public void create_piece() {
+        void create_piece() {
             verifyPiece(Piece.createWhitePawn(), Piece.createBlackPawn(), Type.PAWN);
             verifyPiece(Piece.createWhiteRook(), Piece.createBlackRook(), Type.ROOK);
             verifyPiece(Piece.createWhiteKnight(), Piece.createBlackKnight(), Type.KNIGHT);

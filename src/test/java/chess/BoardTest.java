@@ -16,7 +16,7 @@ public class BoardTest {
     private Board board;
 
     @BeforeEach
-    public void init() {
+    void init() {
         board = new Board();
         board.initialize();
     }
@@ -26,7 +26,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("Board Initialize 테스트")
-        public void initialize() {
+        void initialize() {
             String blankRank = appendNewLine("........");
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder
@@ -82,13 +82,13 @@ public class BoardTest {
 
         @Test
         @DisplayName("초기 기물 개수 : 32개")
-        public void count() {
+        void count() {
             assertEquals(32, board.countAll());
         }
 
         @Test
         @DisplayName("특정 기물 개수")
-        public void countSpecific() {
+        void countSpecific() {
             assertEquals(8, board.getPieceCount(Piece.createBlackPawn()));
             assertEquals(2, board.getPieceCount(Piece.createBlackRook()));
             assertEquals(1, board.getPieceCount(Piece.createBlackKing()));
@@ -112,7 +112,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("기물 반환 테스트")
-        public void checkPieceLocation() {
+        void checkPieceLocation() {
             assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
             assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
             assertEquals(Piece.createBlackKnight(), board.findPiece("b8"));
@@ -153,7 +153,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("기물 배치 테스트")
-        public void placePiece() {
+        void placePiece() {
             //given
             String position = "b5";
             Piece piece = Piece.createBlackQueen();
@@ -167,7 +167,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("기물 이동 테스트")
-        public void movePiece() {
+        void movePiece() {
             //given
             String before = "b1";
             String after = "c3";
@@ -187,7 +187,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("흑/백 점수 출력")
-        public void calculatePoint() {
+        void calculatePoint() {
             board.initializeEmpty();
 
             addPiece("b6", Piece.createBlackPawn());
@@ -206,7 +206,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("Pawn 같은 라인일 때 점수 출력")
-        public void calculatePointWhenPawnInLine() {
+        void calculatePointWhenPawnInLine() {
             board.initializeEmpty();
 
             addPiece("f7", Piece.createBlackPawn());
@@ -225,7 +225,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("기물 점수가 높은 순으로 정렬")
-        public void pieceSortByScoreDescTest() {
+        void pieceSortByScoreDescTest() {
             board.initializeEmpty();
             addPiece("b6", Piece.createBlackRook());
             addPiece("e6", Piece.createBlackQueen());
@@ -244,7 +244,7 @@ public class BoardTest {
 
         @Test
         @DisplayName("기물 점수가 낮은 순으로 정렬")
-        public void pieceSortByScoreAscTest() {
+        void pieceSortByScoreAscTest() {
             board.initializeEmpty();
             addPiece("b6", Piece.createBlackRook());
             addPiece("e6", Piece.createBlackQueen());
