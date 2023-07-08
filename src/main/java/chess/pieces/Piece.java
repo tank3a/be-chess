@@ -124,8 +124,9 @@ public class Piece {
     }
 
     public char getTypeInCharacter() {
-        if(isBlack())
+        if(isBlack()) {
             return type.getBlackRepresentation();
+        }
 
         return type.getWhiteRepresentation();
     }
