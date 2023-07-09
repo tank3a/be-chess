@@ -13,26 +13,44 @@ public class Rank {
         }
     }
 
-    public List<Piece> getRank() {
-        return rank;
+    public Rank(int line) {
+        if(line > 8) {
+            throw new RuntimeException("체스판 크기를 초과하였습니다.");
+        }
+
+        rank = new ArrayList<>();
+
+        switch (line) {
+            case 8:
+                setInitialBlackOther();
+                break;
+            case 7:
+                setInitialBlackPawn();
+                break;
+            case 2:
+                setInitialWhitePawn();
+                break;
+            case 1:
+                setInitialWhiteOther();
+                break;
+            default:
+                new Rank();
+        }
     }
 
-    public void setInitialBlackPawn() {
-        rank.clear();
+    private void setInitialBlackPawn() {
         for(int index = 0; index < 8; index++) {
             rank.add(Piece.createBlackPawn());
         }
     }
 
-    public void setInitialWhitePawn() {
-        rank.clear();
+    private void setInitialWhitePawn() {
         for(int index = 0; index < 8; index++) {
             rank.add(Piece.createWhitePawn());
         }
     }
 
-    public void setInitialBlackOther() {
-        rank.clear();
+    private void setInitialBlackOther() {
         rank.add(Piece.createBlackRook());
         rank.add(Piece.createBlackKnight());
         rank.add(Piece.createBlackBishop());
@@ -43,8 +61,7 @@ public class Rank {
         rank.add(Piece.createBlackRook());
     }
 
-    public void setInitialWhiteOther() {
-        rank.clear();
+    private void setInitialWhiteOther() {
         rank.add(Piece.createWhiteRook());
         rank.add(Piece.createWhiteKnight());
         rank.add(Piece.createWhiteBishop());
@@ -55,8 +72,18 @@ public class Rank {
         rank.add(Piece.createWhiteRook());
     }
 
-    @Override
-    public String toString() {
+
+    public List<Piece> getAllPieceByColor(Piece.Color color) {
+        List<Piece> pieceList = new ArrayList<>();
+        rank.stream().forEach(piece -> {
+            if(piece.compareColor(color)) {
+                pieceList.add(piece);
+            }
+        });
+        return pieceList;
+    }
+
+    public String getLinePrint() {
         StringBuilder stringBuilder = new StringBuilder();
         rank.stream().forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
 

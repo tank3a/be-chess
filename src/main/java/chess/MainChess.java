@@ -21,7 +21,7 @@ public class MainChess {
                 case "end":
                     break;
                 case "move":
-                    board.move(input[1], input[2]);
+                    board.move(new Position(input[1]), new Position(input[2]));
                     System.out.println(board.showBoard());
                     break;
                 default:

@@ -6,11 +6,8 @@ import chess.pieces.Rank;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 
-import static chess.Position.convertXIndex;
-import static chess.Position.convertYIndex;
 import static chess.StringUtils.appendNewLine;
 
 public class Board {
@@ -19,30 +16,48 @@ public class Board {
     private final int BOARD_SIZE = 64;
     private final int FILE_SIZE = 8;
     private final int RANK_SIZE = 8;
+    private final int BLACK_OTHER_LINE = 8;
+    private final int BLACK_PAWN_LINE = 7;
+    private final int WHITE_OTHER_LINE = 1;
+    private final int WHITE_PAWN_LINE = 2;
     private final int MAX_PAWN_IN_LINE_FULL_SCORE = 1;
 
-    public Board() {}
+    public Board() {
+        rankList = new ArrayList<>();
+    }
 
     public void initialize() {
-        initializeEmpty();
-        rankList.get(0).setInitialBlackOther();
-        rankList.get(1).setInitialBlackPawn();
-        rankList.get(6).setInitialWhitePawn();
-        rankList.get(7).setInitialWhiteOther();
+        rankList.clear();
+        rankList.add(new Rank(BLACK_OTHER_LINE));
+        rankList.add(new Rank(BLACK_PAWN_LINE));
+
+        int indexFrom = WHITE_PAWN_LINE + 1;
+        int indexTo = BLACK_PAWN_LINE;
+        while (indexFrom < indexTo) {
+            rankList.add(new Rank());
+            indexFrom++;
+        }
+
+        rankList.add(new Rank(WHITE_PAWN_LINE));
+        rankList.add(new Rank(WHITE_OTHER_LINE));
+
     }
 
     public void initializeEmpty() {
-        rankList = new ArrayList<>();
-        for (int index = 0; index < RANK_SIZE; index++) {
+        rankList.clear();
+        int index = 0;
+        while (index < RANK_SIZE) {
             rankList.add(new Rank());
+            index++;
         }
     }
 
     public String showBoard() {
         StringBuilder board = new StringBuilder();
-        rankList.stream().forEach(rank -> board.append(appendNewLine(rank.toString())));
+        rankList.stream().forEach(rank -> board.append(appendNewLine(rank.getLinePrint())));
 
-        return board.toString();    }
+        return board.toString();
+    }
 
     public int countAll() {
         return BOARD_SIZE - getPieceCount(Piece.createBlank());
@@ -56,18 +71,23 @@ public class Board {
         return count;
     }
 
-    public Piece findPiece(String position) {
-        return rankList.get(convertYIndex(position)).getPiece(convertXIndex(position));
+    public Piece findPiece(String input) {
+        Position position = new Position(input);
+        return findPiece(position);
     }
 
-    public void move(String position, Piece pieceToMove) {
-        rankList.get(convertYIndex(position)).setPiece(convertXIndex(position), pieceToMove);
+    public Piece findPiece(Position position) {
+        return rankList.get(position.getRank()).getPiece(position.getFile());
     }
 
-    public void move(String before, String after) {
+    public void move(Position position, Piece pieceToMove) {
+        rankList.get(position.getRank()).setPiece(position.getFile(), pieceToMove);
+    }
+
+    public void move(Position before, Position after) {
         Piece piece = findPiece(before);
-        rankList.get(convertYIndex(after)).setPiece(convertXIndex(after), piece);
-        rankList.get(convertYIndex(before)).setPiece(convertXIndex(before), Piece.createBlank());
+        rankList.get(after.getRank()).setPiece(after.getFile(), piece);
+        rankList.get(before.getRank()).setPiece(before.getFile(), Piece.createBlank());
     }
 
     public double calculatePoint(Color color) {
@@ -80,14 +100,14 @@ public class Board {
             for (int row = 0; row < RANK_SIZE; row++) {
                 piece = rankList.get(row).getPiece(column);
 
-                if (piece.getColor() == color) {
-                    point += piece.getScore();
-                    if (piece.getType() == Piece.Type.PAWN) {
+                if (piece.compareColor(color)) {
+                    point += piece.getPoint();
+                    if (piece.isPawn()) {
                         countPawn++;
                     }
                 }
             }
-            if (countPawn > 1) {
+            if (countPawn > MAX_PAWN_IN_LINE_FULL_SCORE) {
                 point -= (countPawn / 2.0);
             }
         }
@@ -97,19 +117,8 @@ public class Board {
 
     private List<Piece> getAllPieceByColor(Color color) {
         List<Piece> pieceList = new ArrayList<>();
-        for (int index = 0; index < RANK_SIZE; index++) {
-            Iterator iterator = rankList.get(index).getRank().listIterator();
 
-            while (iterator.hasNext()) {
-                Piece piece = (Piece) iterator.next();
-                if(color.equals(Color.BLACK) && piece.isBlack()) {
-                    pieceList.add(piece);
-                }
-                if(color.equals(Color.WHITE) && piece.isWhite()) {
-                    pieceList.add(piece);
-                }
-            }
-        }
+        rankList.stream().forEach(rank -> pieceList.addAll(rank.getAllPieceByColor(color)));
 
         return pieceList;
     }
@@ -117,7 +126,7 @@ public class Board {
     private StringBuilder printSort(List<Piece> pieceList) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        pieceList.stream().sorted(Comparator.comparing(piece -> piece.getType().getPoint()))
+        pieceList.stream().sorted(Comparator.comparing(piece -> piece.getPoint()))
                 .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
 
         return stringBuilder;

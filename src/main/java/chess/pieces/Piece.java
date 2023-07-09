@@ -29,10 +29,6 @@ public class Piece {
         public char getBlackRepresentation() {
             return Character.toUpperCase(representation);
         }
-
-        public double getPoint() {
-            return defaultPoint;
-        }
     }
 
     private final Color color;
@@ -45,14 +41,6 @@ public class Piece {
 
     private static Piece init(Color color, Type representation) {
         return new Piece(color, representation);
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public Type getType() {
-        return type;
     }
 
     private static Piece createWhite(Type type) {
@@ -123,6 +111,18 @@ public class Piece {
         return this.color.equals(Color.BLACK);
     }
 
+    public boolean compareColor(Color color) {
+        return this.color == color;
+    }
+
+    public boolean compareType(Type type) {
+        return this.type == type;
+    }
+
+    public boolean isPawn() {
+        return this.type == Type.PAWN;
+    }
+
     public char getTypeInCharacter() {
         if(isBlack()) {
             return type.getBlackRepresentation();
@@ -131,7 +131,7 @@ public class Piece {
         return type.getWhiteRepresentation();
     }
 
-    public double getScore() {
+    public double getPoint() {
         return type.defaultPoint;
     }
 
@@ -143,7 +143,7 @@ public class Piece {
     @Override
     public boolean equals(Object obj) {
         Piece piece = (Piece) obj;
-        return piece.getType().equals(type) && piece.getColor().equals(color);
+        return piece.type == type && piece.color == color;
     }
 
 

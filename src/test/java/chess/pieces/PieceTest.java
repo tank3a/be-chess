@@ -34,15 +34,15 @@ public class PieceTest {
             Piece piece = Piece.createBlank();
             assertFalse(piece.isBlack());
             assertFalse(piece.isWhite());
-            assertEquals(Type.NO_PIECE, piece.getType());
+            assertTrue(piece.compareType(Type.NO_PIECE));
         }
 
         private void verifyPiece(Piece whitePiece, Piece blackPiece, Type type) {
             assertTrue(whitePiece.isWhite());
-            assertEquals(type, whitePiece.getType());
+            assertTrue(whitePiece.compareType(type));
 
             assertTrue(blackPiece.isBlack());
-            assertEquals(type, blackPiece.getType());
+            assertTrue(blackPiece.compareType(type));
         }
     }
 

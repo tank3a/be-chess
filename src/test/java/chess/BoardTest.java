@@ -155,7 +155,7 @@ public class BoardTest {
         @DisplayName("기물 배치 테스트")
         void placePiece() {
             //given
-            String position = "b5";
+            Position position = new Position("b5");
             Piece piece = Piece.createBlackQueen();
 
             //when
@@ -169,8 +169,8 @@ public class BoardTest {
         @DisplayName("기물 이동 테스트")
         void movePiece() {
             //given
-            String before = "b1";
-            String after = "c3";
+            Position before = new Position("b1");
+            Position after = new Position("c3");
 
             //when
             board.move(before, after);
@@ -219,7 +219,8 @@ public class BoardTest {
 
         }
 
-        private void addPiece(String position, Piece piece) {
+        private void addPiece(String input, Piece piece) {
+            Position position = new Position(input);
             board.move(position, piece);
         }
 
