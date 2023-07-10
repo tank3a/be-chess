@@ -1,5 +1,8 @@
 package chess.pieces;
 
+import chess.model.pieces.Piece;
+import chess.model.pieces.PieceCreator;
+import chess.model.pieces.PieceType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

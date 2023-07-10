@@ -1,7 +1,7 @@
-package chess;
+package chess.view;
 
-import chess.pieces.Piece;
-import chess.pieces.Rank;
+import chess.model.pieces.Piece;
+import chess.model.board.Rank;
 
 import java.util.Comparator;
 import java.util.List;

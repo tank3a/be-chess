@@ -1,8 +1,12 @@
-package chess;
+package chess.controller;
 
-import chess.pieces.Piece;
-import chess.pieces.PieceColor;
-import chess.pieces.PieceCreator;
+import chess.model.Position;
+import chess.model.pieces.Piece;
+import chess.model.pieces.PieceColor;
+import chess.model.pieces.PieceCreator;
+import chess.model.pieces.PieceType;
+import chess.model.board.Board;
+import chess.view.BoardView;
 
 import java.util.List;
 
@@ -30,6 +34,20 @@ public class ChessGame {
 
     public void move(Position before, Position after) {
         Piece piece = board.findPiece(before);
+
+        if(piece.compareType(PieceType.NO_PIECE)) {
+            throw new RuntimeException("기물이 존재하지 않습니다.");
+        }
+
+        if(!piece.verifyMovePosition(before, after)) {
+            throw new RuntimeException("이동할 수 없는 위치입니다.");
+        }
+
+        Piece pieceAtPosition = board.findPiece(after);
+        if(piece.compareColor(pieceAtPosition)) {
+            throw new RuntimeException("같은 색의 기물은 잡을 수 없습니다.");
+        }
+
         board.getRank(after.getRank()).setPiece(after.getFile(), piece);
         board.getRank(before.getRank()).setPiece(before.getFile(), PieceCreator.createBlank());
     }

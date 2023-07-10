@@ -1,4 +1,8 @@
-package chess.pieces;
+package chess.model.board;
+
+import chess.model.pieces.Piece;
+import chess.model.pieces.PieceColor;
+import chess.model.pieces.PieceCreator;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,8 @@
 package chess;
 
-import chess.pieces.Piece;
-import chess.pieces.PieceCreator;
+import chess.model.pieces.Piece;
+import chess.model.pieces.PieceCreator;
+import chess.view.BoardView;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

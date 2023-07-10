@@ -1,6 +1,8 @@
-package chess.pieces;
+package chess.model.pieces;
 
-public class Piece {
+import chess.model.Position;
+
+public abstract class Piece {
 
     private final PieceColor color;
     private final PieceType type;
@@ -9,6 +11,8 @@ public class Piece {
         this.color = color;
         this.type = type;
     }
+
+    public abstract boolean verifyMovePosition(Position position, Position positionToMove);
 
     public boolean isWhite() {
         return this.color.equals(PieceColor.WHITE);
@@ -20,6 +24,10 @@ public class Piece {
 
     public boolean compareColor(PieceColor color) {
         return this.color == color;
+    }
+
+    public boolean compareColor(Piece piece) {
+        return piece.compareColor(this.color);
     }
 
     public boolean compareType(PieceType type) {

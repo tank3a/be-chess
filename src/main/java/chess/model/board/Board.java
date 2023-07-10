@@ -1,9 +1,9 @@
-package chess;
+package chess.model.board;
 
-import chess.pieces.Piece;
-import chess.pieces.PieceColor;
-import chess.pieces.PieceCreator;
-import chess.pieces.Rank;
+import chess.model.Position;
+import chess.model.pieces.Piece;
+import chess.model.pieces.PieceColor;
+import chess.model.pieces.PieceCreator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 public class Board {
 
     private List<Rank> rankList;
-    private final int BOARD_SIZE = 64;
-    private final int FILE_SIZE = 8;
-    private final int RANK_SIZE = 8;
+    public static final int BOARD_SIZE = 64;
+    public static final int FILE_SIZE = 8;
+    public static final int RANK_SIZE = 8;
     private final int BLACK_OTHER_LINE = 8;
     private final int BLACK_PAWN_LINE = 7;
     private final int WHITE_OTHER_LINE = 1;

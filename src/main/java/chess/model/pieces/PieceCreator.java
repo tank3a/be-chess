@@ -1,4 +1,4 @@
-package chess.pieces;
+package chess.model.pieces;
 
 public class PieceCreator {
 

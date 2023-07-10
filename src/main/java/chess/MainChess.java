@@ -1,5 +1,8 @@
 package chess;
 
+import chess.controller.ChessGame;
+import chess.model.Position;
+
 import java.util.Scanner;
 
 public class MainChess {

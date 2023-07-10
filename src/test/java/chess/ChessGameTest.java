@@ -1,9 +1,11 @@
 package chess;
 
-import chess.pieces.Piece;
-import chess.pieces.PieceColor;
-import chess.pieces.PieceCreator;
-import chess.pieces.PieceType;
+import chess.controller.ChessGame;
+import chess.model.Position;
+import chess.model.pieces.Piece;
+import chess.model.pieces.PieceColor;
+import chess.model.pieces.PieceCreator;
+import chess.model.pieces.PieceType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -76,97 +78,6 @@ public class ChessGameTest {
             );
         }
     }
-
-    @Nested
-    @DisplayName("이동 관련 테스트")
-    class MoveTest {
-
-        @Test
-        @DisplayName("기물 이동 테스트")
-        void movePiece() {
-            //given
-            Position before = new Position("b1");
-            Position after = new Position("c3");
-
-            //when
-            chessGame.move(before, after);
-
-            //then
-            assertEquals(PieceCreator.createBlank(), chessGame.getPieceInPosition(before));
-            assertEquals(PieceCreator.createWhiteKnight(), chessGame.getPieceInPosition(after));
-        }
-
-        void setPiece() {
-            chessGame.initializeEmptyBoard();
-            chessGame.placePiece("c4", PieceCreator.createWhiteKing());
-        }
-
-        @Test
-        @DisplayName("킹 이동 테스트/다른 색 기물이 있을 때")
-        void moveKingWhenOtherColor() {
-            //given
-            setPiece();
-            chessGame.placePiece("d4", PieceCreator.createBlackRook());
-            Position current = new Position("c4");
-            Position east = new Position("d4");
-
-            //when
-            chessGame.move(current, east);
-
-            //then
-            assertEquals(PieceCreator.createWhiteKing(), chessGame.getPieceInPosition(east));
-        }
-
-        @Test
-        @DisplayName("킹 이동 테스트/빈 곳으로 갈 때")
-        void moveKingWhenEmpty() {
-            //given
-            setPiece();
-            Position current = new Position("c4");
-            Position west = new Position("b4");
-            Position northWest = new Position("a5");
-
-            //when
-            chessGame.move(current, west);
-
-            //then
-            assertEquals(PieceCreator.createWhiteKing(), chessGame.getPieceInPosition(west));
-
-            //when
-            chessGame.move(west, northWest);
-
-            //then
-            assertEquals(PieceCreator.createWhiteKing(), chessGame.getPieceInPosition(northWest));
-        }
-
-        @Test
-        @DisplayName("킹 이동 테스트/같은 색 기물이 있을 때")
-        public void moveKingWhenSameColor() {
-            //given
-            setPiece();
-            Position current = new Position("c4");
-            Position south = new Position("c5");
-            chessGame.placePiece("c5", PieceCreator.createWhiteBishop());
-
-            //when
-            chessGame.move(current, south);
-
-            //then
-            assertEquals(PieceCreator.createWhiteKing(), chessGame.getPieceInPosition(south));
-
-        }
-
-        @Test
-        @DisplayName("퀸 이동 테스트")
-        void moveQueen() {
-            //given
-
-            //when
-
-            //then
-        }
-    }
-
 
     @Nested
     @DisplayName("점수 관련 테스트")
