@@ -1,10 +1,8 @@
 package chess;
 
 import chess.pieces.Piece;
-import chess.pieces.PieceColor;
 import chess.pieces.Rank;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 

@@ -15,7 +15,4 @@ public class BoardViewTest {
         board = new Board();
     }
 
-
-
-
 }

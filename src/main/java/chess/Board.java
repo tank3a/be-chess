@@ -2,10 +2,10 @@ package chess;
 
 import chess.pieces.Piece;
 import chess.pieces.PieceColor;
+import chess.pieces.PieceCreator;
 import chess.pieces.Rank;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Board {
@@ -59,7 +59,7 @@ public class Board {
     }
 
     public int countAll() {
-        return BOARD_SIZE - getPieceCount(Piece.createBlank());
+        return BOARD_SIZE - getPieceCount(PieceCreator.createBlank());
     }
 
     public int getPieceCount(Piece pieceToCount) {

@@ -2,6 +2,7 @@ package chess;
 
 import chess.pieces.Piece;
 import chess.pieces.PieceColor;
+import chess.pieces.PieceCreator;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ChessGame {
     public void move(Position before, Position after) {
         Piece piece = board.findPiece(before);
         board.getRank(after.getRank()).setPiece(after.getFile(), piece);
-        board.getRank(before.getRank()).setPiece(before.getFile(), Piece.createBlank());
+        board.getRank(before.getRank()).setPiece(before.getFile(), PieceCreator.createBlank());
     }
 
     public Piece getPieceInPosition(Position position) {

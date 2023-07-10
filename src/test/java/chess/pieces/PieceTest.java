@@ -23,14 +23,14 @@ public class PieceTest {
         @Test
         @DisplayName("흰색, 검정색 Piece 생성 테스트")
         void create_piece() {
-            verifyPiece(Piece.createWhitePawn(), Piece.createBlackPawn(), PieceType.PAWN);
-            verifyPiece(Piece.createWhiteRook(), Piece.createBlackRook(), PieceType.ROOK);
-            verifyPiece(Piece.createWhiteKnight(), Piece.createBlackKnight(), PieceType.KNIGHT);
-            verifyPiece(Piece.createWhiteBishop(), Piece.createBlackBishop(), PieceType.BISHOP);
-            verifyPiece(Piece.createWhiteKing(), Piece.createBlackKing(), PieceType.KING);
-            verifyPiece(Piece.createWhiteQueen(), Piece.createBlackQueen(), PieceType.QUEEN);
+            verifyPiece(PieceCreator.createWhitePawn(), PieceCreator.createBlackPawn(), PieceType.PAWN);
+            verifyPiece(PieceCreator.createWhiteRook(), PieceCreator.createBlackRook(), PieceType.ROOK);
+            verifyPiece(PieceCreator.createWhiteKnight(), PieceCreator.createBlackKnight(), PieceType.KNIGHT);
+            verifyPiece(PieceCreator.createWhiteBishop(), PieceCreator.createBlackBishop(), PieceType.BISHOP);
+            verifyPiece(PieceCreator.createWhiteKing(), PieceCreator.createBlackKing(), PieceType.KING);
+            verifyPiece(PieceCreator.createWhiteQueen(), PieceCreator.createBlackQueen(), PieceType.QUEEN);
 
-            Piece piece = Piece.createBlank();
+            Piece piece = PieceCreator.createBlank();
             assertFalse(piece.isBlack());
             assertFalse(piece.isWhite());
             assertTrue(piece.compareType(PieceType.NO_PIECE));
