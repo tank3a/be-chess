@@ -73,7 +73,7 @@ public class Rank {
     }
 
 
-    public List<Piece> getAllPieceByColor(Piece.Color color) {
+    public List<Piece> getAllPieceByColor(PieceColor color) {
         List<Piece> pieceList = new ArrayList<>();
         rank.stream().forEach(piece -> {
             if(piece.compareColor(color)) {

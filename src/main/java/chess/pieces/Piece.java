@@ -2,125 +2,96 @@ package chess.pieces;
 
 public class Piece {
 
-    public enum Color {
-        WHITE, BLACK, NOCOLOR;
-    }
+    private final PieceColor color;
+    private final PieceType type;
 
-    public enum Type {
-        PAWN('p', 1.0),
-        ROOK('r', 5.0),
-        KNIGHT('n', 2.5),
-        BISHOP('b', 3.0),
-        QUEEN('q', 9.0),
-        KING('k', 0.0),
-        NO_PIECE('.', 0.0);
-
-        private char representation;
-        private double defaultPoint;
-
-        Type(char representation, double defaultPoint) {
-            this.representation = representation;
-            this.defaultPoint = defaultPoint;
-        }
-        public char getWhiteRepresentation() {
-            return representation;
-        }
-
-        public char getBlackRepresentation() {
-            return Character.toUpperCase(representation);
-        }
-    }
-
-    private final Color color;
-    private final Type type;
-
-    private Piece(final Color color, final Type type) {
+    private Piece(final PieceColor color, final PieceType type) {
         this.color = color;
         this.type = type;
     }
 
-    private static Piece init(Color color, Type representation) {
+    private static Piece init(PieceColor color, PieceType representation) {
         return new Piece(color, representation);
     }
 
-    private static Piece createWhite(Type type) {
-        return init(Color.WHITE, type);
+    private static Piece createWhite(PieceType type) {
+        return init(PieceColor.WHITE, type);
     }
 
-    private static Piece createBlack(Type type) {
-        return init(Color.BLACK, type);
+    private static Piece createBlack(PieceType type) {
+        return init(PieceColor.BLACK, type);
     }
 
     public static Piece createBlank() {
-        return init(Color.NOCOLOR, Type.NO_PIECE);
+        return init(PieceColor.NOCOLOR, PieceType.NO_PIECE);
     }
 
     public static Piece createBlackPawn() {
-        return createBlack(Type.PAWN);
+        return createBlack(PieceType.PAWN);
     }
 
     public static Piece createWhitePawn() {
-        return createWhite(Type.PAWN);
+        return createWhite(PieceType.PAWN);
     }
 
     public static Piece createBlackRook() {
-        return createBlack(Type.ROOK);
+        return createBlack(PieceType.ROOK);
     }
 
     public static Piece createWhiteRook() {
-        return createWhite(Type.ROOK);
+        return createWhite(PieceType.ROOK);
     }
 
     public static Piece createBlackKnight() {
-        return createBlack(Type.KNIGHT);
+        return createBlack(PieceType.KNIGHT);
     }
 
     public static Piece createWhiteKnight() {
-        return createWhite(Type.KNIGHT);
+        return createWhite(PieceType.KNIGHT);
     }
 
     public static Piece createBlackBishop() {
-        return createBlack(Type.BISHOP);
+        return createBlack(PieceType.BISHOP);
     }
 
     public static Piece createWhiteBishop() {
-        return createWhite(Type.BISHOP);
+        return createWhite(PieceType.BISHOP);
     }
 
     public static Piece createBlackQueen() {
-        return createBlack(Type.QUEEN);
+        return createBlack(PieceType.QUEEN);
     }
 
     public static Piece createWhiteQueen() {
-        return createWhite(Type.QUEEN);
+        return createWhite(PieceType.QUEEN);
     }
 
     public static Piece createBlackKing() {
-        return createBlack(Type.KING);
+        return createBlack(PieceType.KING);
     }
 
     public static Piece createWhiteKing() {
-        return createWhite(Type.KING);
+        return createWhite(PieceType.KING);
     }
 
     public boolean isWhite() {
-        return this.color.equals(Color.WHITE);
+        return this.color.equals(PieceColor.WHITE);
     }
 
     public boolean isBlack() {
-        return this.color.equals(Color.BLACK);
+        return this.color.equals(PieceColor.BLACK);
     }
 
-    public boolean compareColor(Color color) {
+    public boolean compareColor(PieceColor color) {
         return this.color == color;
     }
 
-    public boolean compareType(Type type) {
+    public boolean compareType(PieceType type) {
         return this.type == type;
     }
 
     public boolean isPawn() {
-        return this.type == Type.PAWN;
+        return this.type == PieceType.PAWN;
     }
 
     public char getTypeInCharacter() {
@@ -132,7 +103,7 @@ public class Piece {
     }
 
     public double getPoint() {
-        return type.defaultPoint;
+        return type.getDefaultPoint();
     }
 
     @Override
@@ -145,6 +116,4 @@ public class Piece {
         Piece piece = (Piece) obj;
         return piece.type == type && piece.color == color;
     }
-
-
 }

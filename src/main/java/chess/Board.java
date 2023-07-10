@@ -1,14 +1,12 @@
 package chess;
 
 import chess.pieces.Piece;
-import chess.pieces.Piece.Color;
+import chess.pieces.PieceColor;
 import chess.pieces.Rank;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import static chess.StringUtils.appendNewLine;
 
 public class Board {
 
@@ -52,11 +50,12 @@ public class Board {
         }
     }
 
-    public String showBoard() {
-        StringBuilder board = new StringBuilder();
-        rankList.stream().forEach(rank -> board.append(appendNewLine(rank.getLinePrint())));
+    public List<Rank> getRankList() {
+        return rankList;
+    }
 
-        return board.toString();
+    public Rank getRank(int index) {
+        return rankList.get(index);
     }
 
     public int countAll() {
@@ -80,17 +79,11 @@ public class Board {
         return rankList.get(position.getRank()).getPiece(position.getFile());
     }
 
-    public void move(Position position, Piece pieceToMove) {
+    public void setPiece(Position position, Piece pieceToMove) {
         rankList.get(position.getRank()).setPiece(position.getFile(), pieceToMove);
     }
 
-    public void move(Position before, Position after) {
-        Piece piece = findPiece(before);
-        rankList.get(after.getRank()).setPiece(after.getFile(), piece);
-        rankList.get(before.getRank()).setPiece(before.getFile(), Piece.createBlank());
-    }
-
-    public double calculatePoint(Color color) {
+    public double calculatePoint(PieceColor color) {
         double point = 0;
         int countPawn;
         Piece piece;
@@ -115,32 +108,11 @@ public class Board {
         return point;
     }
 
-    private List<Piece> getAllPieceByColor(Color color) {
+    public List<Piece> getAllPieceByColor(PieceColor color) {
         List<Piece> pieceList = new ArrayList<>();
 
         rankList.stream().forEach(rank -> pieceList.addAll(rank.getAllPieceByColor(color)));
 
         return pieceList;
-    }
-
-    private StringBuilder printSort(List<Piece> pieceList) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        pieceList.stream().sorted(Comparator.comparing(piece -> piece.getPoint()))
-                .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
-
-        return stringBuilder;
-    }
-
-    public String sortPieceAndPrint(Color color, boolean desc) {
-
-        List<Piece> pieceList = getAllPieceByColor(color);
-
-        StringBuilder stringBuilder = printSort(pieceList);
-        if(desc) {
-            stringBuilder = stringBuilder.reverse();
-        }
-
-        return stringBuilder.toString();
     }
 }
