@@ -42,7 +42,7 @@ public enum Direction {
 
     public static Direction findDirection(Position before, Position after) {
         int xIncrement = after.getFile() - before.getFile();
-        int yIncrement = before.getRank() - after.getRank();
+        int yIncrement = after.getRank() - before.getRank();
 
         int maxValue = Math.max(Math.abs(xIncrement), Math.abs(yIncrement));
 
@@ -51,15 +51,15 @@ public enum Direction {
             int yIndex = direction.getYIndex();
             int xExpected = 0;
             int yExpected = 0;
-            for(int times  = 1; times <= maxValue; times++) {
+            for (int times = 1; times <= maxValue; times++) {
                 xExpected += xIndex;
                 yExpected += yIndex;
 
-                if(Math.abs(xIncrement) > Math.abs(xExpected) || Math.abs(yIncrement) > Math.abs(yExpected)) {
+                if (Math.abs(xIncrement) < Math.abs(xExpected) || Math.abs(yIncrement) < Math.abs(yExpected)) {
                     break;
                 }
 
-                if(xExpected == xIncrement && yExpected == yIncrement) {
+                if (xExpected == xIncrement && yExpected == yIncrement) {
                     return direction;
                 }
             }
@@ -85,11 +85,11 @@ public enum Direction {
         return Arrays.asList(NORTH_NORTHEAST, EAST_NORTHEAST, EAST_SOUTHEAST, SOUTH_SOUTHEAST, SOUTH_SOUTHWEST, WEST_SOUTHWEST, WEST_NORTHWEST, NORTH_NORTHWEST);
     }
 
-    public static List<Direction> whitePawnDirection() {
+    public static List<Direction> blackPawnDirection() {
         return Arrays.asList(NORTH, NORTHEAST, NORTHWEST);
     }
 
-    public static List<Direction> blackPawnDirection() {
+    public static List<Direction> whitePawnDirection() {
         return Arrays.asList(SOUTH, SOUTHEAST, SOUTHWEST);
     }
 

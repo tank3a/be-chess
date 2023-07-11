@@ -90,7 +90,7 @@ public class Board {
         int countPawn;
         Piece piece;
 
-        for(int column = 0; column < FILE_SIZE; column++) {
+        for (int column = 0; column < FILE_SIZE; column++) {
             countPawn = 0;
             for (int row = 0; row < RANK_SIZE; row++) {
                 piece = rankList.get(row).getPiece(column);
@@ -121,11 +121,11 @@ public class Board {
     public boolean existPieceBetween(Position before, Position after, Direction direction) {
         Position positionToMove = before.getPositionAfterDirection(direction);
 
-        if(positionToMove.equals(after)) {
+        if (positionToMove.equals(after)) {
             return false;
         }
 
-        if(!findPiece(positionToMove).compareType(PieceType.NO_PIECE)) {
+        if (!findPiece(positionToMove).compareType(PieceType.NO_PIECE)) {
             return true;
         }
 

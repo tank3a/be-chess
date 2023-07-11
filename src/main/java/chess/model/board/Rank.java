@@ -12,13 +12,13 @@ public class Rank {
 
     public Rank() {
         rank = new ArrayList<>();
-        for(int repeat = 0; repeat < 8; repeat++) {
+        for (int repeat = 0; repeat < 8; repeat++) {
             rank.add(PieceCreator.createBlank());
         }
     }
 
     public Rank(int line) {
-        if(line > 8) {
+        if (line > 8) {
             throw new RuntimeException("체스판 크기를 초과하였습니다.");
         }
 
@@ -43,13 +43,13 @@ public class Rank {
     }
 
     private void setInitialBlackPawn() {
-        for(int index = 0; index < 8; index++) {
+        for (int index = 0; index < Board.FILE_SIZE; index++) {
             rank.add(PieceCreator.createBlackPawn());
         }
     }
 
     private void setInitialWhitePawn() {
-        for(int index = 0; index < 8; index++) {
+        for (int index = 0; index < Board.FILE_SIZE; index++) {
             rank.add(PieceCreator.createWhitePawn());
         }
     }
@@ -80,7 +80,7 @@ public class Rank {
     public List<Piece> getAllPieceByColor(PieceColor color) {
         List<Piece> pieceList = new ArrayList<>();
         rank.stream().forEach(piece -> {
-            if(piece.compareColor(color)) {
+            if (piece.compareColor(color)) {
                 pieceList.add(piece);
             }
         });
