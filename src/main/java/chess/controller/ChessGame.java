@@ -1,10 +1,7 @@
 package chess.controller;
 
 import chess.model.Position;
-import chess.model.pieces.Piece;
-import chess.model.pieces.PieceColor;
-import chess.model.pieces.PieceCreator;
-import chess.model.pieces.PieceType;
+import chess.model.pieces.*;
 import chess.model.board.Board;
 import chess.view.BoardView;
 
@@ -43,6 +40,18 @@ public class ChessGame {
             throw new RuntimeException("이동할 수 없는 위치입니다.");
         }
 
+        Direction direction = Direction.findDirection(before, after);
+
+        if(piece.compareType(PieceType.PAWN)) {
+            if(!validPawnMove(piece, before, direction)) {
+                throw new RuntimeException("폰이 이동할 수 없는 위치입니다.");
+            }
+        }
+
+        if(board.existPieceBetween(before, after, direction)) {
+            throw new RuntimeException("중간에 기물이 있어 이동할 수 없습니다.");
+        }
+
         Piece pieceAtPosition = board.findPiece(after);
         if(piece.compareColor(pieceAtPosition)) {
             throw new RuntimeException("같은 색의 기물은 잡을 수 없습니다.");
@@ -50,6 +59,28 @@ public class ChessGame {
 
         board.getRank(after.getRank()).setPiece(after.getFile(), piece);
         board.getRank(before.getRank()).setPiece(before.getFile(), PieceCreator.createBlank());
+    }
+
+    private boolean validPawnMove(Piece pawn, Position position, Direction direction) {
+        if(direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)) {
+            if(board.findPiece(position.getPositionAfterDirection(direction)).compareType(PieceType.NO_PIECE)) {
+                return true;
+            }
+        }
+
+        if(direction.equals(Direction.NORTHEAST) || direction.equals(Direction.NORTHWEST)) {
+            if(pawn.isWhite() && board.findPiece(position.getPositionAfterDirection(direction)).compareColor(PieceColor.BLACK)) {
+                return true;
+            }
+        }
+
+        if(direction.equals(Direction.SOUTHEAST) || direction.equals(Direction.SOUTHWEST)) {
+            if(pawn.isBlack() && board.findPiece(position.getPositionAfterDirection(direction)).compareColor(PieceColor.WHITE)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public Piece getPieceInPosition(Position position) {

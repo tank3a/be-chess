@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class QueenTest {
+public class RookTest {
 
     private ChessGame chessGame;
     private Position current;
@@ -20,38 +20,38 @@ public class QueenTest {
     void init() {
         chessGame = new ChessGame();
         chessGame.initializeEmptyBoard();
-        chessGame.placePiece("c3", PieceCreator.createWhiteQueen());
+        chessGame.placePiece("c3", PieceCreator.createWhiteRook());
 
         current = new Position("c3");
     }
 
     @Nested
-    @DisplayName("퀸 이동 테스트")
-    class QueenMoveTest {
+    @DisplayName("룩 이동 테스트")
+    class RookMoveTest {
         @Test
         @DisplayName("빈 곳으로 갈 때")
-        void moveQueenWhenEmpty() {
+        void moveRookWhenEmpty() {
             //given
-            Position after = new Position("a1");
+            Position after = new Position("c7");
 
             //when
             chessGame.move(current, after);
 
             //then
-            assertEquals(PieceCreator.createWhiteQueen(), chessGame.getPieceInPosition(after));
+            assertEquals(PieceCreator.createWhiteRook(), chessGame.getPieceInPosition(after));
 
             //when
             current = after;
-            after = new Position("a8");
+            after = new Position("f7");
             chessGame.move(current, after);
 
             //then
-            assertEquals(PieceCreator.createWhiteQueen(), chessGame.getPieceInPosition(after));
+            assertEquals(PieceCreator.createWhiteRook(), chessGame.getPieceInPosition(after));
         }
 
         @Test
         @DisplayName("같은 색 기물이 있을 때")
-        public void moveQueenWhenSameColor() {
+        public void moveRookWhenSameColor() {
             //given
             Position south = new Position("c5");
             chessGame.placePiece("c5", PieceCreator.createWhiteBishop());
@@ -62,21 +62,21 @@ public class QueenTest {
 
         @Test
         @DisplayName("도달한 위치에 다른 색 기물이 있을 때")
-        void moveQueenWhenOtherColor() {
+        void moveRookWhenOtherColor() {
             //given
-            chessGame.placePiece("e5", PieceCreator.createBlackRook());
-            Position east = new Position("e5");
+            chessGame.placePiece("e3", PieceCreator.createBlackRook());
+            Position east = new Position("e3");
 
             //when
             chessGame.move(current, east);
 
             //then
-            assertEquals(PieceCreator.createWhiteQueen(), chessGame.getPieceInPosition(east));
+            assertEquals(PieceCreator.createWhiteRook(), chessGame.getPieceInPosition(east));
         }
 
         @Test
         @DisplayName("갈 수 없는 경로로 이동했을 때")
-        void moveQueenInvalid() {
+        void moveRookInvalid() {
             //given
             Position invalid = new Position("d6");
 
@@ -86,7 +86,7 @@ public class QueenTest {
 
         @Test
         @DisplayName("가는 도중 기물이 존재할 때")
-        void moveQueenOverPiece() {
+        void moveRookOverPiece() {
             //given
             Position positionToMove = new Position("c7");
             chessGame.placePiece("c5", PieceCreator.createWhiteBishop());

@@ -54,7 +54,4 @@ public class BoardViewTest {
             assertEquals("KPBBRQ", boardView.printPieceAsc(blackPieceList));
         }
     }
-
-
-
 }

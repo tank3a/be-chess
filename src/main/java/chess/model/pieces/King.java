@@ -14,12 +14,12 @@ public class King extends Piece {
 
 
     @Override
-    public boolean verifyMovePosition(Position current, Position positionToMove) {
+    public boolean verifyMovePosition(Position position, Position positionToMove) {
         List<Direction> movableDirection = Direction.everyDirection();
 
         List<Position> movablePosition = movableDirection
                 .stream()
-                .map(direction -> current.getPositionAfterDirection(direction))
+                .map(direction -> position.getPositionAfterDirection(direction))
                 .collect(Collectors.toList());
 
         return movablePosition.contains(positionToMove);

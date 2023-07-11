@@ -1,9 +1,11 @@
 package chess.model.board;
 
+import chess.controller.Direction;
 import chess.model.Position;
 import chess.model.pieces.Piece;
 import chess.model.pieces.PieceColor;
 import chess.model.pieces.PieceCreator;
+import chess.model.pieces.PieceType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,5 +116,19 @@ public class Board {
         rankList.stream().forEach(rank -> pieceList.addAll(rank.getAllPieceByColor(color)));
 
         return pieceList;
+    }
+
+    public boolean existPieceBetween(Position before, Position after, Direction direction) {
+        Position positionToMove = before.getPositionAfterDirection(direction);
+
+        if(positionToMove.equals(after)) {
+            return false;
+        }
+
+        if(!findPiece(positionToMove).compareType(PieceType.NO_PIECE)) {
+            return true;
+        }
+
+        return existPieceBetween(positionToMove, after, direction);
     }
 }

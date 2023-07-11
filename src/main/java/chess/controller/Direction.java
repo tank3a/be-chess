@@ -1,5 +1,7 @@
 package chess.controller;
 
+import chess.model.Position;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,6 +38,35 @@ public enum Direction {
 
     public int getYIndex() {
         return yIndex;
+    }
+
+    public static Direction findDirection(Position before, Position after) {
+        int xIncrement = after.getFile() - before.getFile();
+        int yIncrement = before.getRank() - after.getRank();
+
+        int maxValue = Math.max(Math.abs(xIncrement), Math.abs(yIncrement));
+
+        for (Direction direction : Direction.values()) {
+            int xIndex = direction.getXIndex();
+            int yIndex = direction.getYIndex();
+            int xExpected = 0;
+            int yExpected = 0;
+            for(int times  = 1; times <= maxValue; times++) {
+                xExpected += xIndex;
+                yExpected += yIndex;
+
+                if(Math.abs(xIncrement) > Math.abs(xExpected) || Math.abs(yIncrement) > Math.abs(yExpected)) {
+                    break;
+                }
+
+                if(xExpected == xIncrement && yExpected == yIncrement) {
+                    return direction;
+                }
+            }
+        }
+
+        return null;
+
     }
 
     public static List<Direction> linearDirection() {
