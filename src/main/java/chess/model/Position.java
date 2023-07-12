@@ -2,6 +2,7 @@ package chess.model;
 
 import chess.controller.Direction;
 import chess.exception.ExceptionMessageHandler;
+import chess.exception.InvalidMoveException;
 import chess.exception.InvalidPositionException;
 
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class Position {
         RANK = MAX_RANK_SIZE - Character.getNumericValue(position.charAt(1));
 
         if(!checkIsValid(FILE, RANK)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION_MESSAGE);
+            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION);
         }
     }
 
@@ -27,7 +28,7 @@ public class Position {
         RANK = rank;
 
         if(!checkIsValid(FILE, RANK)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION_MESSAGE);
+            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION);
         }
     }
 
@@ -48,7 +49,7 @@ public class Position {
         int rankAfter = RANK + direction.getYIndex();
 
         if(!checkIsValid(fileAfter, rankAfter)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_MOVE_MESSAGE);
+            throw new InvalidMoveException(ExceptionMessageHandler.INVALID_MOVE);
         }
         return new Position(fileAfter, rankAfter);
     }
