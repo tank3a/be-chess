@@ -11,7 +11,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List<Direction> getPieceMovableDirection() {
+    protected List<Direction> getPieceMovableDirection() {
         return Direction.knightDirection();
     }
 }

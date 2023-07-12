@@ -11,7 +11,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public List<Direction> getPieceMovableDirection() {
+    protected List<Direction> getPieceMovableDirection() {
         List<Direction> movableDirection;
 
         movableDirection = Direction.whitePawnDirection();

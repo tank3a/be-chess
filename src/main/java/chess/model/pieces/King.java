@@ -12,7 +12,7 @@ public class King extends Piece {
 
 
     @Override
-    public List<Direction> getPieceMovableDirection() {
+    protected List<Direction> getPieceMovableDirection() {
         return Direction.everyDirection();
     }
 }

@@ -12,12 +12,7 @@ public class NoPiece extends Piece {
     }
 
     @Override
-    public List<Direction> getPieceMovableDirection() {
+    protected List<Direction> getPieceMovableDirection() {
         return null;
-    }
-
-    @Override
-    public boolean verifyMovePosition(Position position, Position positionToMove) {
-        return false;
     }
 }

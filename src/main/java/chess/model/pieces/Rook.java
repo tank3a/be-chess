@@ -11,7 +11,7 @@ public class Rook extends PieceMoveMore {
     }
 
     @Override
-    public List<Direction> getPieceMovableDirection() {
+    protected List<Direction> getPieceMovableDirection() {
         return Direction.linearDirection();
     }
 }

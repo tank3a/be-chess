@@ -11,7 +11,7 @@ public class Bishop extends PieceMoveMore {
     }
 
     @Override
-    public List<Direction> getPieceMovableDirection() {
+    protected List<Direction> getPieceMovableDirection() {
         return Direction.diagonalDirection();
     }
 }

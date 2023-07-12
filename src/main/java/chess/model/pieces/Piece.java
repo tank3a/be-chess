@@ -1,6 +1,8 @@
 package chess.model.pieces;
 
 import chess.controller.Direction;
+import chess.exception.ExceptionMessageHandler;
+import chess.exception.InvalidMoveException;
 import chess.exception.InvalidPositionException;
 import chess.model.Position;
 
@@ -12,14 +14,15 @@ public abstract class Piece {
     private final PieceColor color;
     private final PieceType type;
 
+
     protected Piece(final PieceColor color, final PieceType type) {
         this.color = color;
         this.type = type;
     }
 
-    public abstract List<Direction> getPieceMovableDirection();
+    protected abstract List<Direction> getPieceMovableDirection();
 
-    public boolean verifyMovePosition(Position position, Position positionToMove) {
+    public void verifyMovePosition(Position position, Position positionToMove) {
         List<Direction> movableDirection = getPieceMovableDirection();
         List<Position> movablePosition = movableDirection
                 .stream()
@@ -32,7 +35,9 @@ public abstract class Piece {
                 })
                 .collect(Collectors.toList());
 
-        return movablePosition.contains(positionToMove);
+        if(!movablePosition.contains(positionToMove)) {
+            throw new InvalidMoveException(ExceptionMessageHandler.INVALID_MOVE);
+        }
     }
 
     public boolean isWhite() {

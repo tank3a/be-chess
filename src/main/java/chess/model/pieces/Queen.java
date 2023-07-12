@@ -11,7 +11,7 @@ public class Queen extends PieceMoveMore {
     }
 
     @Override
-    public List<Direction> getPieceMovableDirection() {
+    protected List<Direction> getPieceMovableDirection() {
         return Direction.everyDirection();
     }
 
