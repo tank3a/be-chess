@@ -24,7 +24,12 @@ public class MainChess {
                 case "end":
                     break;
                 case "move":
-                    chessGame.move(new Position(input[1]), new Position(input[2]));
+                    try {
+                        chessGame.move(new Position(input[1]), new Position(input[2]));
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
                     System.out.println(chessGame.showBoard());
                     break;
                 default:
