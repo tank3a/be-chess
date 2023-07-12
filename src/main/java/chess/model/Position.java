@@ -33,7 +33,7 @@ public class Position {
     }
 
     private boolean checkIsValid(int file, int rank) {
-        return FILE < MAX_FILE_SIZE && RANK < MAX_RANK_SIZE && FILE >= 0 && RANK >= 0;
+        return 0 <= FILE && FILE < MAX_FILE_SIZE && 0 <= RANK && RANK < MAX_RANK_SIZE;
     }
 
     public int getFile() {

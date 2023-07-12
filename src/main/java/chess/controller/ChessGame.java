@@ -48,6 +48,10 @@ public class ChessGame {
     private void validateMove(Position before, Position after) {
         Piece piece = board.findPiece(before);
 
+        if (piece.isBlack() != isBlackTurn) {
+            throw new InvalidMoveException(ExceptionMessageHandler.NOT_YOUR_PIECE);
+        }
+
         if (piece.compareType(PieceType.NO_PIECE)) {
             throw new InvalidPositionException(ExceptionMessageHandler.PIECE_NOT_EXIST);
         }
@@ -64,9 +68,6 @@ public class ChessGame {
             throw new InvalidMoveException(ExceptionMessageHandler.SAME_PIECE);
         }
 
-        if(piece.isBlack() != isBlackTurn) {
-            throw new InvalidMoveException(ExceptionMessageHandler.NOT_YOUR_PIECE);
-        }
     }
 
     private void validPawnMove(Piece pawn, Position position, Direction direction) {

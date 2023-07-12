@@ -1,14 +1,13 @@
 package chess.model.pieces;
 
 import chess.controller.Direction;
-import chess.model.Position;
 
 import java.util.List;
 
-public class NoPiece extends Piece {
+public class BlankPiece extends Piece {
 
-    NoPiece() {
-        super(PieceColor.NOCOLOR, PieceType.NO_PIECE);
+    BlankPiece() {
+        super(PieceColor.NO_COLOR, PieceType.NO_PIECE);
     }
 
     @Override
