@@ -9,7 +9,9 @@ public enum ExceptionMessage {
     PIECE_BETWEEN("이동하려는 위치에 다른 기물이 존재합니다."),
     SAME_PIECE("동일한 색의 기물은 잡을 수 없습니다."),
     NOT_YOUR_PIECE("자신의 턴에 자신의 기물만 이동시킬 수 있습니다."),
-    INVALID_BOARD_SIZE("체스판 크기를 초과하였습니다.");
+    INVALID_BOARD_SIZE("체스판 크기를 초과하였습니다."),
+    INVALID_INPUT("잘못된 입력입니다."),
+    BOARD_NOT_EXIST("보드가 존재하지 않습니다.");
 
     private String message;
 

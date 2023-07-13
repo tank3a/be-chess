@@ -54,6 +54,10 @@ public class Board {
         }
     }
 
+    public boolean isInitialized() {
+        return !rankList.isEmpty();
+    }
+
     public List<Rank> getRankList() {
         return rankList;
     }

@@ -30,8 +30,12 @@ public class ChessGame {
         board.initializeEmpty();
     }
 
-    public String showBoard() {
-        return boardView.showBoard(board.getRankList());
+    public void showBoard() {
+        boardView.showBoard(board.getRankList());
+    }
+
+    public boolean isInitialized() {
+        return board.isInitialized();
     }
 
     public void move(Position before, Position after) {
@@ -95,6 +99,10 @@ public class ChessGame {
         return board.findPiece(position);
     }
 
+    public void printScore() {
+        boardView.printScore(calculatePoint(PieceColor.BLACK), calculatePoint(PieceColor.WHITE));
+    }
+
     public double calculatePoint(PieceColor pieceColor) {
         return board.calculatePoint(pieceColor);
     }
@@ -111,5 +119,9 @@ public class ChessGame {
         }
 
         return boardView.printPieceAsc(pieceList);
+    }
+
+    public void printErrorInput(Exception exception) {
+        boardView.printErrorInput(exception.getMessage());
     }
 }

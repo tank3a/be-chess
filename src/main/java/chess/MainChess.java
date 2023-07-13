@@ -1,6 +1,9 @@
 package chess;
 
 import chess.controller.ChessGame;
+import chess.exception.ExceptionMessage;
+import chess.exception.InvalidBoardException;
+import chess.exception.InvalidInputException;
 import chess.model.Position;
 
 import java.util.Scanner;
@@ -18,27 +21,34 @@ public class MainChess {
         while (true) {
             command = scanner.nextLine().trim();
             String[] input = command.split(" ");
-            switch (input[0]) {
-                case "start":
-                    chessGame.initializeBoard();
-                    System.out.println(chessGame.showBoard());
-                    break;
-                case "end":
-                    break;
-                case "move":
-                    try {
+            try {
+                switch (input[0]) {
+                    case "start":
+                        chessGame.initializeBoard();
+                        chessGame.showBoard();
+                        break;
+                    case "end":
+                        break;
+                    case "move":
+                        if(!chessGame.isInitialized()) {
+                            throw new InvalidBoardException(ExceptionMessage.BOARD_NOT_EXIST);
+                        }
                         chessGame.move(new Position(input[1]), new Position(input[2]));
-                        System.out.println(chessGame.showBoard());
+                        chessGame.showBoard();
                         break;
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        e.printStackTrace();
+                    case "score":
+                        if(!chessGame.isInitialized()) {
+                            throw new InvalidBoardException(ExceptionMessage.BOARD_NOT_EXIST);
+                        }
+                        chessGame.printScore();
                         break;
-                    }
-                default:
-                    System.out.println("입력이 잘못되었습니다. 다시 입력해주세요");
+                    default:
+                        chessGame.printErrorInput(new InvalidInputException(ExceptionMessage.INVALID_INPUT));
+                }
+            } catch (Exception exception) {
+                chessGame.printErrorInput(exception);
             }
-            System.out.println("명령을 입력해주세요: start/move/end");
+            System.out.println("명령을 입력해주세요: start/move/score/end");
 
             if(input[0].equals("end")) {
                 break;

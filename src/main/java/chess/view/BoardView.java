@@ -10,17 +10,26 @@ import static chess.StringUtils.appendNewLine;
 
 public class BoardView {
 
-    public String showBoard(List<Rank> rankList) {
+    public void showBoard(List<Rank> rankList) {
         StringBuilder board = new StringBuilder();
-        rankList.stream().forEach(rank -> board.append(appendNewLine(rank.getLinePrint())));
+        rankList.forEach(rank -> board.append(appendNewLine(rank.getLinePrint())));
 
-        return board.toString();
+        System.out.println(board);
+    }
+
+    public void printScore(double blackScore, double whiteScore) {
+        StringBuilder score = new StringBuilder();
+
+        score.append("Black 점수: ").append(blackScore).append(appendNewLine(""));
+        score.append("White 점수: ").append(whiteScore).append(appendNewLine(""));
+
+        System.out.println(score);
     }
 
     private StringBuilder printSort(List<Piece> pieceList) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        pieceList.stream().sorted(Comparator.comparing(piece -> piece.getPoint()))
+        pieceList.stream().sorted(Comparator.comparing(Piece::getPoint))
                 .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
 
         return stringBuilder;
@@ -37,6 +46,10 @@ public class BoardView {
         StringBuilder stringBuilder = printSort(pieceList);
 
         return stringBuilder.reverse().toString();
+    }
+
+    public void printErrorInput(String message) {
+        System.out.println(message);
     }
 
 }
