@@ -34,7 +34,7 @@ public enum PieceType {
     }
 
     private char getRepresentation() {
-        return this.representation;
+        return representation;
     }
 
     public double getDefaultPoint() {

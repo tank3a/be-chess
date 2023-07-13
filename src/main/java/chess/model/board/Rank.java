@@ -3,11 +3,11 @@ package chess.model.board;
 import chess.exception.ExceptionMessage;
 import chess.exception.InvalidBoardException;
 import chess.model.pieces.Piece;
-import chess.model.pieces.PieceColor;
 import chess.model.pieces.PieceCreator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Rank {
     private List<Piece> rank;
@@ -78,17 +78,6 @@ public class Rank {
         rank.add(PieceCreator.createWhiteRook());
     }
 
-
-    public List<Piece> getAllPieceByColor(PieceColor color) {
-        List<Piece> pieceList = new ArrayList<>();
-        rank.stream().forEach(piece -> {
-            if (piece.compareColor(color)) {
-                pieceList.add(piece);
-            }
-        });
-        return pieceList;
-    }
-
     public String getLinePrint() {
         StringBuilder stringBuilder = new StringBuilder();
         rank.stream().forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
@@ -106,5 +95,24 @@ public class Rank {
 
     public void setPiece(int index, Piece pieceToSet) {
         rank.set(index, pieceToSet);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rank rank1 = (Rank) o;
+
+        for(int index = 0; index < this.rank.size(); index++) {
+            if(!this.rank.get(index).equals(rank1.rank.get(index))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rank);
     }
 }

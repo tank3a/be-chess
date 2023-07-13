@@ -26,15 +26,6 @@ public class BoardView {
         System.out.println(score);
     }
 
-    private StringBuilder printSort(List<Piece> pieceList) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        pieceList.stream().sorted(Comparator.comparing(Piece::getPoint))
-                .forEach(piece -> stringBuilder.append(piece.getTypeInCharacter()));
-
-        return stringBuilder;
-    }
-
     public void printErrorInput(String message) {
         System.out.println(message);
     }

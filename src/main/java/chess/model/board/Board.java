@@ -116,14 +116,6 @@ public class Board {
         return point;
     }
 
-    public List<Piece> getAllPieceByColor(PieceColor color) {
-        List<Piece> pieceList = new ArrayList<>();
-
-        rankList.stream().forEach(rank -> pieceList.addAll(rank.getAllPieceByColor(color)));
-
-        return pieceList;
-    }
-
     public void existPieceBetween(Position before, Position after, Direction direction) {
         Position positionToMove = before.getPositionAfterDirection(direction);
 
