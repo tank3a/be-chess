@@ -18,7 +18,7 @@ public class PawnTest {
     private Position whiteCurrent;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         chessGame = new ChessGame();
         chessGame.initializeEmptyBoard();
         chessGame.placePiece("c2", PieceCreator.createWhitePawn());

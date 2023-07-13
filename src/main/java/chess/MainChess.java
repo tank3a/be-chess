@@ -22,8 +22,9 @@ public class MainChess {
                 case "start":
                     chessGame.initializeBoard();
                     System.out.println(chessGame.showBoard());
+                    break;
                 case "end":
-                    System.exit(0);
+                    break;
                 case "move":
                     try {
                         chessGame.move(new Position(input[1]), new Position(input[2]));
@@ -31,14 +32,17 @@ public class MainChess {
                         break;
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
+                        e.printStackTrace();
                         break;
                     }
                 default:
                     System.out.println("입력이 잘못되었습니다. 다시 입력해주세요");
             }
-
             System.out.println("명령을 입력해주세요: start/move/end");
 
+            if(input[0].equals("end")) {
+                break;
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ public class BoardTest {
     private Board board;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         board = new Board();
         board.initialize();
     }

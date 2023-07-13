@@ -1,55 +1,54 @@
 package chess.model;
 
 import chess.controller.Direction;
-import chess.exception.ExceptionMessageHandler;
-import chess.exception.InvalidMoveException;
+import chess.exception.ExceptionMessage;
 import chess.exception.InvalidPositionException;
 
 import java.util.Objects;
 
 public class Position {
 
-    private final int FILE;
-    private final int RANK;
-    private final int MAX_RANK_SIZE = 8;
-    private final int MAX_FILE_SIZE = 8;
+    private final int file;
+    private final int rank;
+    private static final int MAX_RANK_SIZE = 8;
+    private static final int MAX_FILE_SIZE = 8;
 
     public Position(String position) {
-        FILE = position.charAt(0) - 'a';
-        RANK = MAX_RANK_SIZE - Character.getNumericValue(position.charAt(1));
+        file = position.charAt(0) - 'a';
+        rank = MAX_RANK_SIZE - Character.getNumericValue(position.charAt(1));
 
-        if(!checkIsValid(FILE, RANK)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION);
+        if(!checkIsValid(file, rank)) {
+            throw new InvalidPositionException(ExceptionMessage.INVALID_POSITION);
         }
     }
 
     public Position(int file, int rank) {
-        FILE = file;
-        RANK = rank;
+        this.file = file;
+        this.rank = rank;
 
-        if(!checkIsValid(FILE, RANK)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION);
+        if(!checkIsValid(this.file, this.rank)) {
+            throw new InvalidPositionException(ExceptionMessage.INVALID_POSITION);
         }
     }
 
     private boolean checkIsValid(int file, int rank) {
-        return 0 <= FILE && FILE < MAX_FILE_SIZE && 0 <= RANK && RANK < MAX_RANK_SIZE;
+        return 0 <= file && file < MAX_FILE_SIZE && 0 <= rank && rank < MAX_RANK_SIZE;
     }
 
     public int getFile() {
-        return FILE;
+        return file;
     }
 
     public int getRank() {
-        return RANK;
+        return rank;
     }
 
     public Position getPositionAfterDirection(Direction direction) {
-        int fileAfter = FILE + direction.getXIndex();
-        int rankAfter = RANK + direction.getYIndex();
+        int fileAfter = file + direction.getXIndex();
+        int rankAfter = rank + direction.getYIndex();
 
         if(!checkIsValid(fileAfter, rankAfter)) {
-            throw new InvalidMoveException(ExceptionMessageHandler.INVALID_MOVE);
+            return null;
         }
         return new Position(fileAfter, rankAfter);
     }
@@ -59,11 +58,11 @@ public class Position {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Position position = (Position) o;
-        return FILE == position.FILE && RANK == position.RANK;
+        return file == position.file && rank == position.rank;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(FILE, RANK);
+        return Objects.hash(file, rank);
     }
 }

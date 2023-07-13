@@ -17,7 +17,7 @@ public class KnightTest {
     private Position current;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         chessGame = new ChessGame();
         chessGame.initializeEmptyBoard();
         chessGame.placePiece("c4", PieceCreator.createWhiteKnight());

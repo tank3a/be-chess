@@ -1,13 +1,9 @@
 package chess.model.pieces;
 
 import chess.controller.Direction;
-import chess.exception.ExceptionMessageHandler;
-import chess.exception.InvalidMoveException;
-import chess.exception.InvalidPositionException;
 import chess.model.Position;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class Piece {
 
@@ -22,23 +18,7 @@ public abstract class Piece {
 
     protected abstract List<Direction> getPieceMovableDirection();
 
-    public void verifyMovePosition(Position position, Position positionToMove) {
-        List<Direction> movableDirection = getPieceMovableDirection();
-        List<Position> movablePosition = movableDirection
-                .stream()
-                .map(direction -> {
-                    try {
-                        return position.getPositionAfterDirection(direction);
-                    } catch (InvalidPositionException exception) {
-                        return null;
-                    }
-                })
-                .collect(Collectors.toList());
-
-        if(!movablePosition.contains(positionToMove)) {
-            throw new InvalidMoveException(ExceptionMessageHandler.INVALID_MOVE);
-        }
-    }
+    public abstract void verifyMovePosition(Position position, Position positionToMove);
 
     public boolean isWhite() {
         return this.color.equals(PieceColor.WHITE);
@@ -74,6 +54,10 @@ public abstract class Piece {
 
     public double getPoint() {
         return type.getDefaultPoint();
+    }
+
+    public boolean isOppositeColor(Piece piece) {
+        return this.color == piece.color;
     }
 
     @Override

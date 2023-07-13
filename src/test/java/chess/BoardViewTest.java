@@ -18,7 +18,7 @@ public class BoardViewTest {
     private BoardView boardView;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         boardView = new BoardView();
     }
 

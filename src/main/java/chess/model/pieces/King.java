@@ -4,7 +4,7 @@ import chess.controller.Direction;
 
 import java.util.List;
 
-public class King extends Piece {
+public class King extends PieceMoveOnce {
 
     King(PieceColor color) {
         super(color, PieceType.KING);

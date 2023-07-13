@@ -17,7 +17,7 @@ public class RookTest {
     private Position current;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         chessGame = new ChessGame();
         chessGame.initializeEmptyBoard();
         chessGame.placePiece("c3", PieceCreator.createWhiteRook());

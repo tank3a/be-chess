@@ -4,7 +4,7 @@ import chess.controller.Direction;
 
 import java.util.List;
 
-public class Pawn extends Piece {
+public class Pawn extends PieceMoveOnce {
 
     Pawn(PieceColor color) {
         super(color, PieceType.PAWN);

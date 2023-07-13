@@ -1,7 +1,6 @@
 package chess;
 
 import chess.controller.ChessGame;
-import chess.model.Position;
 import chess.model.pieces.Piece;
 import chess.model.pieces.PieceColor;
 import chess.model.pieces.PieceCreator;
@@ -19,7 +18,7 @@ public class ChessGameTest {
     private ChessGame chessGame;
 
     @BeforeEach
-    void init() {
+    void setUp() {
         chessGame = new ChessGame();
         chessGame.initializeBoard();
     }
