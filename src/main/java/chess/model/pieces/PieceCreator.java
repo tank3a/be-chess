@@ -5,7 +5,7 @@ public class PieceCreator {
     private PieceCreator() {}
 
     public static Piece createBlank() {
-        return new BlankPiece();
+        return new NoPiece();
     }
 
     public static Piece createBlackPawn() {

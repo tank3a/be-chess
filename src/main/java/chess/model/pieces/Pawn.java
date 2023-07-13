@@ -1,8 +1,10 @@
 package chess.model.pieces;
 
 import chess.controller.Direction;
+import chess.model.Position;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Pawn extends Piece {
 
@@ -11,7 +13,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    protected List<Direction> getPieceMovableDirection() {
+    public boolean verifyMovePosition(Position position, Position positionToMove) {
         List<Direction> movableDirection;
 
         movableDirection = Direction.whitePawnDirection();
@@ -20,6 +22,12 @@ public class Pawn extends Piece {
             movableDirection = Direction.blackPawnDirection();
         }
 
-        return movableDirection;
+
+        List<Position> movablePosition = movableDirection
+                .stream()
+                .map(direction -> position.getPositionAfterDirection(direction))
+                .collect(Collectors.toList());
+
+        return movablePosition.contains(positionToMove);
     }
 }

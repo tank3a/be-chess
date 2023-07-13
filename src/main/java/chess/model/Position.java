@@ -1,9 +1,7 @@
 package chess.model;
 
 import chess.controller.Direction;
-import chess.exception.ExceptionMessageHandler;
-import chess.exception.InvalidMoveException;
-import chess.exception.InvalidPositionException;
+import chess.model.board.Board;
 
 import java.util.Objects;
 
@@ -11,29 +9,15 @@ public class Position {
 
     private final int FILE;
     private final int RANK;
-    private final int MAX_RANK_SIZE = 8;
-    private final int MAX_FILE_SIZE = 8;
 
     public Position(String position) {
         FILE = position.charAt(0) - 'a';
-        RANK = MAX_RANK_SIZE - Character.getNumericValue(position.charAt(1));
-
-        if(!checkIsValid(FILE, RANK)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION);
-        }
+        RANK = 8 - Character.getNumericValue(position.charAt(1));
     }
 
     public Position(int file, int rank) {
         FILE = file;
         RANK = rank;
-
-        if(!checkIsValid(FILE, RANK)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.INVALID_POSITION);
-        }
-    }
-
-    private boolean checkIsValid(int file, int rank) {
-        return 0 <= FILE && FILE < MAX_FILE_SIZE && 0 <= RANK && RANK < MAX_RANK_SIZE;
     }
 
     public int getFile() {
@@ -48,8 +32,8 @@ public class Position {
         int fileAfter = FILE + direction.getXIndex();
         int rankAfter = RANK + direction.getYIndex();
 
-        if(!checkIsValid(fileAfter, rankAfter)) {
-            throw new InvalidMoveException(ExceptionMessageHandler.INVALID_MOVE);
+        if(fileAfter >= Board.FILE_SIZE || fileAfter < 0 || rankAfter >= Board.RANK_SIZE || rankAfter < 0) {
+            return null;
         }
         return new Position(fileAfter, rankAfter);
     }
