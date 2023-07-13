@@ -1,6 +1,6 @@
 package chess.controller;
 
-import chess.exception.ExceptionMessageHandler;
+import chess.exception.ExceptionMessage;
 import chess.exception.InvalidMoveException;
 import chess.exception.InvalidPositionException;
 import chess.model.Position;
@@ -14,12 +14,12 @@ public class ChessGame {
 
     private final Board board;
     private final BoardView boardView;
-    private boolean isBlackTurn;
+    private boolean isWhiteTurn;
 
     public ChessGame() {
         board = new Board();
         boardView = new BoardView();
-        isBlackTurn = true;
+        isWhiteTurn = true;
     }
 
     public void initializeBoard() {
@@ -37,7 +37,7 @@ public class ChessGame {
     public void move(Position before, Position after) {
         validateMove(before, after);
 
-        isBlackTurn = !isBlackTurn;
+        isWhiteTurn = !isWhiteTurn;
 
         Piece piece = board.findPiece(before);
 
@@ -48,45 +48,47 @@ public class ChessGame {
     private void validateMove(Position before, Position after) {
         Piece piece = board.findPiece(before);
 
-        if (piece.isBlack() != isBlackTurn) {
-            throw new InvalidMoveException(ExceptionMessageHandler.NOT_YOUR_PIECE);
-        }
+        isTurn(piece);
 
-        if (piece.compareType(PieceType.NO_PIECE)) {
-            throw new InvalidPositionException(ExceptionMessageHandler.PIECE_NOT_EXIST);
-        }
+        isBlank(piece);
 
         piece.verifyMovePosition(before, after);
 
         Direction direction = Direction.findDirection(before, after);
-        if (piece.compareType(PieceType.PAWN)) {
-            validPawnMove(piece, before, direction);
-        }
+        validatePawnMove(before, piece, direction);
         board.existPieceBetween(before, after, direction);
 
         if (piece.compareColor(board.findPiece(after))) {
-            throw new InvalidMoveException(ExceptionMessageHandler.SAME_PIECE);
+            throw new InvalidMoveException(ExceptionMessage.SAME_PIECE);
         }
-
     }
 
-    private void validPawnMove(Piece pawn, Position position, Direction direction) {
-        Piece piece = board.findPiece(position.getPositionAfterDirection(direction));
-        if ((direction.equals(Direction.NORTH) || direction.equals(Direction.SOUTH)
-        && piece.compareType(PieceType.NO_PIECE))) {
+    private void validatePawnMove(Position before, Piece pieceBefore, Direction direction) {
+        if (!pieceBefore.compareType(PieceType.PAWN)) {
             return;
         }
 
-        if (Direction.diagonalDirection().contains(direction)) {
-            if (pawn.isWhite() && piece.isBlack()) {
-                return;
-            }
-
-            if (piece.isWhite() && pawn.isBlack()) {
-                return;
-            }
+        Piece pieceAfter = board.findPiece(before.getPositionAfterDirection(direction));
+        if ((Direction.linearDirection().contains(direction) && pieceAfter.compareType(PieceType.NO_PIECE))) {
+            return;
         }
-        throw new InvalidPositionException(ExceptionMessageHandler.INVALID_PAWN_MOVE);
+
+        if (Direction.diagonalDirection().contains(direction) && pieceBefore.isOppositeColor(pieceAfter)) {
+            return;
+        }
+        throw new InvalidPositionException(ExceptionMessage.INVALID_PAWN_MOVE);
+    }
+
+    private void isBlank(Piece piece) {
+        if (piece.compareType(PieceType.NO_PIECE)) {
+            throw new InvalidPositionException(ExceptionMessage.PIECE_NOT_EXIST);
+        }
+    }
+
+    private void isTurn(Piece piece) {
+        if (piece.isWhite() != isWhiteTurn) {
+            throw new InvalidMoveException(ExceptionMessage.NOT_YOUR_PIECE);
+        }
     }
 
     public Piece getPieceInPosition(Position position) {

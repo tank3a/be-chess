@@ -1,5 +1,7 @@
 package chess.model.board;
 
+import chess.exception.ExceptionMessage;
+import chess.exception.InvalidBoardException;
 import chess.model.pieces.Piece;
 import chess.model.pieces.PieceColor;
 import chess.model.pieces.PieceCreator;
@@ -19,7 +21,7 @@ public class Rank {
 
     public Rank(int line) {
         if (line > 8) {
-            throw new RuntimeException("체스판 크기를 초과하였습니다.");
+            throw new InvalidBoardException(ExceptionMessage.INVALID_BOARD_SIZE);
         }
 
         rank = new ArrayList<>();

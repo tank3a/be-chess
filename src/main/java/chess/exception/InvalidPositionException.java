@@ -2,7 +2,7 @@ package chess.exception;
 
 public class InvalidPositionException extends RuntimeException {
 
-    public InvalidPositionException(ExceptionMessageHandler message) {
+    public InvalidPositionException(ExceptionMessage message) {
         super(message.getMessage());
     }
 }

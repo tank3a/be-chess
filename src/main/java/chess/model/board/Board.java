@@ -1,7 +1,7 @@
 package chess.model.board;
 
 import chess.controller.Direction;
-import chess.exception.ExceptionMessageHandler;
+import chess.exception.ExceptionMessage;
 import chess.exception.InvalidMoveException;
 import chess.model.Position;
 import chess.model.pieces.Piece;
@@ -128,7 +128,7 @@ public class Board {
         }
 
         if (!findPiece(positionToMove).compareType(PieceType.NO_PIECE)) {
-            throw new InvalidMoveException(ExceptionMessageHandler.PIECE_BETWEEN);
+            throw new InvalidMoveException(ExceptionMessage.PIECE_BETWEEN);
         }
 
         existPieceBetween(positionToMove, after, direction);
