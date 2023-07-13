@@ -111,16 +111,6 @@ public class ChessGame {
         board.setPiece(new Position(input), piece);
     }
 
-    public String sortPieceByColorAndPrint(PieceColor color, boolean desc) {
-        List<Piece> pieceList = board.getAllPieceByColor(color);
-
-        if (desc) {
-            return boardView.printPieceDesc(pieceList);
-        }
-
-        return boardView.printPieceAsc(pieceList);
-    }
-
     public void printErrorInput(Exception exception) {
         boardView.printErrorInput(exception.getMessage());
     }

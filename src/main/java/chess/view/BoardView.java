@@ -35,19 +35,6 @@ public class BoardView {
         return stringBuilder;
     }
 
-    public String printPieceAsc(List<Piece> pieceList) {
-
-        StringBuilder stringBuilder = printSort(pieceList);
-
-        return stringBuilder.toString();
-    }
-
-    public String printPieceDesc(List<Piece> pieceList) {
-        StringBuilder stringBuilder = printSort(pieceList);
-
-        return stringBuilder.reverse().toString();
-    }
-
     public void printErrorInput(String message) {
         System.out.println(message);
     }

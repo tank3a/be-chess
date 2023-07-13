@@ -119,43 +119,5 @@ public class ChessGameTest {
         private void addPiece(String input, Piece piece) {
             chessGame.placePiece(input, piece);
         }
-
-        @Test
-        @DisplayName("기물 점수가 높은 순으로 정렬")
-        void pieceSortByScoreDescTest() {
-            chessGame.initializeEmptyBoard();
-            addPiece("b6", PieceCreator.createBlackRook());
-            addPiece("e6", PieceCreator.createBlackQueen());
-            addPiece("b8", PieceCreator.createBlackKing());
-            addPiece("c8", PieceCreator.createBlackRook());
-
-            addPiece("f2", PieceCreator.createWhitePawn());
-            addPiece("f3", PieceCreator.createWhitePawn());
-            addPiece("e1", PieceCreator.createWhiteRook());
-            addPiece("f1", PieceCreator.createWhiteKing());
-
-            assertEquals("QRRK", chessGame.sortPieceByColorAndPrint(PieceColor.BLACK, true));
-            assertEquals("rppk", chessGame.sortPieceByColorAndPrint(PieceColor.WHITE, true));
-
-        }
-
-        @Test
-        @DisplayName("기물 점수가 낮은 순으로 정렬")
-        void pieceSortByScoreAscTest() {
-            chessGame.initializeEmptyBoard();
-            addPiece("b6", PieceCreator.createBlackRook());
-            addPiece("e6", PieceCreator.createBlackQueen());
-            addPiece("b8", PieceCreator.createBlackKing());
-            addPiece("c8", PieceCreator.createBlackRook());
-
-            addPiece("f2", PieceCreator.createWhitePawn());
-            addPiece("f3", PieceCreator.createWhitePawn());
-            addPiece("e1", PieceCreator.createWhiteRook());
-            addPiece("f1", PieceCreator.createWhiteKing());
-
-            assertEquals("KRRQ", chessGame.sortPieceByColorAndPrint(PieceColor.BLACK, false));
-            assertEquals("kppr", chessGame.sortPieceByColorAndPrint(PieceColor.WHITE, false));
-        }
-
     }
 }
