@@ -18,11 +18,23 @@ public enum PieceType {
         this.defaultPoint = defaultPoint;
     }
     public char getWhiteRepresentation() {
+        if(this.equals(PieceType.NO_PIECE)) {
+            return getRepresentation();
+        }
+
         return representation;
     }
 
     public char getBlackRepresentation() {
+        if(this.equals(PieceType.NO_PIECE)) {
+            return getRepresentation();
+        }
+
         return Character.toUpperCase(representation);
+    }
+
+    private char getRepresentation() {
+        return this.representation;
     }
 
     public double getDefaultPoint() {

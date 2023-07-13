@@ -19,7 +19,7 @@ public abstract class PieceMoveMore extends Piece {
 
     @Override
     public void verifyMovePosition(Position position, Position positionToMove) {
-        List<Direction> movableDirection = Direction.everyDirection();
+        List<Direction> movableDirection = getPieceMovableDirection();
 
         List<Position> movablePosition = new ArrayList<>();
 
@@ -35,13 +35,14 @@ public abstract class PieceMoveMore extends Piece {
     protected List<Position> recursiveMove(Position current, Direction direction) {
         List<Position> movablePosition = new ArrayList<>();
 
-        try {
-            Position position = current.getPositionAfterDirection(direction);
-            movablePosition.add(position);
-            movablePosition.addAll(recursiveMove(position, direction));
-        } catch (Exception exception) {
+        Position position = current.getPositionAfterDirection(direction);
+
+        if(position == null) {
             return movablePosition;
         }
+
+        movablePosition.add(position);
+        movablePosition.addAll(recursiveMove(position, direction));
 
         return movablePosition;
     }

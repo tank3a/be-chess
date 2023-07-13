@@ -11,7 +11,8 @@ public enum ExceptionMessage {
     NOT_YOUR_PIECE("자신의 턴에 자신의 기물만 이동시킬 수 있습니다."),
     INVALID_BOARD_SIZE("체스판 크기를 초과하였습니다."),
     INVALID_INPUT("잘못된 입력입니다."),
-    BOARD_NOT_EXIST("보드가 존재하지 않습니다.");
+    BOARD_NOT_EXIST("보드가 존재하지 않습니다."),
+    INVALID_PIECE_COMPARE("빈 기물과 비교할 수 없습니다.");
 
     private String message;
 

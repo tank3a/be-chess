@@ -1,6 +1,8 @@
 package chess.model.pieces;
 
 import chess.controller.Direction;
+import chess.exception.ExceptionMessage;
+import chess.exception.PieceNotExistException;
 import chess.model.Position;
 
 import java.util.List;
@@ -57,7 +59,11 @@ public abstract class Piece {
     }
 
     public boolean isOppositeColor(Piece piece) {
-        return this.color == piece.color;
+        if((this.color == PieceColor.NO_COLOR) || (piece.color == PieceColor.NO_COLOR)) {
+            throw new PieceNotExistException(ExceptionMessage.INVALID_PIECE_COMPARE);
+        }
+
+        return this.color != piece.color;
     }
 
     @Override
