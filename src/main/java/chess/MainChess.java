@@ -13,8 +13,9 @@ public class MainChess {
 
         ChessGame chessGame = new ChessGame();
 
+        System.out.println("명령을 입력해주세요: start/end");
+
         while (true) {
-            System.out.println("명령을 입력해주세요: start/end");
             command = scanner.nextLine().trim();
             String[] input = command.split(" ");
             switch (input[0]) {
@@ -22,17 +23,22 @@ public class MainChess {
                     chessGame.initializeBoard();
                     System.out.println(chessGame.showBoard());
                 case "end":
-                    break;
+                    System.exit(0);
                 case "move":
-                    chessGame.move(new Position(input[1]), new Position(input[2]));
-                    System.out.println(chessGame.showBoard());
-                    break;
+                    try {
+                        chessGame.move(new Position(input[1]), new Position(input[2]));
+                        System.out.println(chessGame.showBoard());
+                        break;
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        break;
+                    }
                 default:
                     System.out.println("입력이 잘못되었습니다. 다시 입력해주세요");
             }
 
-            if(command.equals("end"))
-                break;
+            System.out.println("명령을 입력해주세요: start/move/end");
+
         }
     }
 }

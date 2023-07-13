@@ -4,15 +4,14 @@ import chess.controller.Direction;
 
 import java.util.List;
 
-public class Queen extends PieceMoveMore {
+public class BlankPiece extends Piece {
 
-    Queen(PieceColor color) {
-        super(color, PieceType.QUEEN);
+    BlankPiece() {
+        super(PieceColor.NO_COLOR, PieceType.NO_PIECE);
     }
 
     @Override
     protected List<Direction> getPieceMovableDirection() {
-        return Direction.everyDirection();
+        return null;
     }
-
 }

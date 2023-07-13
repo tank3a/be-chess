@@ -1,6 +1,8 @@
 package chess.model.board;
 
 import chess.controller.Direction;
+import chess.exception.ExceptionMessageHandler;
+import chess.exception.InvalidMoveException;
 import chess.model.Position;
 import chess.model.pieces.Piece;
 import chess.model.pieces.PieceColor;
@@ -118,17 +120,17 @@ public class Board {
         return pieceList;
     }
 
-    public boolean existPieceBetween(Position before, Position after, Direction direction) {
+    public void existPieceBetween(Position before, Position after, Direction direction) {
         Position positionToMove = before.getPositionAfterDirection(direction);
 
         if (positionToMove.equals(after)) {
-            return false;
+            return;
         }
 
         if (!findPiece(positionToMove).compareType(PieceType.NO_PIECE)) {
-            return true;
+            throw new InvalidMoveException(ExceptionMessageHandler.PIECE_BETWEEN);
         }
 
-        return existPieceBetween(positionToMove, after, direction);
+        existPieceBetween(positionToMove, after, direction);
     }
 }
