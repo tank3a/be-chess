@@ -8,8 +8,6 @@ import chess.model.pieces.*;
 import chess.model.board.Board;
 import chess.view.BoardView;
 
-import java.util.List;
-
 public class ChessGame {
 
     private final Board board;

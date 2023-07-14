@@ -1,9 +1,7 @@
 package chess.view;
 
-import chess.model.pieces.Piece;
 import chess.model.board.Rank;
 
-import java.util.Comparator;
 import java.util.List;
 
 import static chess.StringUtils.appendNewLine;
